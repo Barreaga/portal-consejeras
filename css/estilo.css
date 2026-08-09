@@ -1,0 +1,38 @@
+/* Estilos propios del portal. Bootstrap hace el resto. */
+
+:root {
+  --color-principal: #6b3f69;
+  --color-claro: #f6f1f5;
+}
+
+body {
+  background-color: var(--color-claro);
+}
+
+.barra-principal {
+  background-color: var(--color-principal);
+}
+
+.titulo-seccion {
+  color: var(--color-principal);
+  font-weight: 600;
+}
+
+.tarjeta-producto {
+  transition: box-shadow 0.2s;
+}
+
+.tarjeta-producto:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.producto-agotado {
+  opacity: 0.55;
+}
+
+.pie-pagina {
+  background-color: var(--color-principal);
+  color: #fff;
+  padding: 24px 0;
+  margin-top: 48px;
+}

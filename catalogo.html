@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogo - Portal de Consejeras</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/estilo.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-dark barra-principal">
+    <div class="container">
+      <a href="dashboard.html" class="navbar-brand mb-0 h1">Portal de Consejeras</a>
+      <div>
+        <span class="text-white me-3" id="nombre-consejera"></span>
+        <button id="btn-salir" class="btn btn-light btn-sm">Cerrar sesion</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+
+    <h2 class="titulo-seccion mb-3">Catalogo del mes</h2>
+
+    <!-- HU-04: buscar por SKU -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" id="buscar-sku"
+                 placeholder="Buscar por SKU, ejemplo: SKU-0001">
+          <button class="btn btn-secondary" id="btn-buscar">Buscar</button>
+          <button class="btn btn-outline-secondary" id="btn-limpiar">Ver todos</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mensaje-busqueda" class="alert alert-info d-none" role="alert"></div>
+
+    <div class="row g-3" id="lista-productos"></div>
+
+    <hr class="my-5">
+
+    <h2 class="titulo-seccion mb-3">Mi pedido</h2>
+
+    <div id="mensaje-pedido" class="alert d-none" role="alert"></div>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="lineas-pedido"></tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <h4 class="titulo-seccion mb-0">Total: <span id="total-pedido">Q0.00</span></h4>
+      <button id="btn-enviar" class="btn btn-lg text-white" style="background-color:#6b3f69;">
+        Enviar pedido
+      </button>
+    </div>
+
+  </div>
+
+  <script src="js/productos.js"></script>
+  <script src="js/pedido.js"></script>
+  <script src="js/sesion.js"></script>
+  <script src="js/catalogo.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+name: QA Gate
+
+# Esto se ejecuta solo cada vez que subimos cambios a GitHub.
+# Si algo falla, el codigo no se puede integrar.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qa-gate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Bajar el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar el linter
+        run: npm install
+
+      # Criterio 1 del QA Gate: cero errores del linter
+      - name: Revisar el codigo con ESLint
+        run: npm run lint -- --max-warnings 10
+
+      # Criterio 2 del QA Gate: cero pruebas fallidas
+      - name: Correr las pruebas
+        run: npm test
