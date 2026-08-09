@@ -3,7 +3,7 @@
 // Las separamos en funciones para poder probarlas una por una.
 
 // RN-01: el pedido debe llegar a este monto para poder enviarse
-const MONTO_MINIMO = 400;
+const MONTO_MINIMO = 500;
 
 // RN-02: la cantidad de cada producto debe estar en este rango
 const CANTIDAD_MINIMA = 1;
