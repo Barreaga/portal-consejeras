@@ -1,11 +1,15 @@
 // login.js
 // Maneja el inicio de sesion.
-
+//
+// IMPORTANTE: este login es simulado. Como el proyecto no tiene servidor,
+// las credenciales estan aqui y la sesion se guarda en el navegador.
+// Esto NO es seguridad real y esta declarado como limitacion conocida
+// en el Documento SQA (seccion 3.4) y en el Test Plan (seccion 4.3).
 
 const CONSEJERAS = [
-  { codigo: 'C001', clave: 'clave123', nombre: 'Brandon Arreaga', estado: 'activa' },
-  { codigo: 'C002', clave: 'clave123', nombre: 'Juan Arriola', estado: 'activa' },
-  { codigo: 'C003', clave: 'clave123', nombre: 'Juan Romero', estado: 'inactiva' }
+  { codigo: 'C001', clave: 'clave123', nombre: 'Ana Lopez', estado: 'activa' },
+  { codigo: 'C002', clave: 'clave123', nombre: 'Rosa Perez', estado: 'activa' },
+  { codigo: 'C003', clave: 'clave123', nombre: 'Marta Diaz', estado: 'inactiva' }
 ];
 
 function mostrarMensaje(texto) {
@@ -57,3 +61,14 @@ function intentarEntrar() {
 }
 
 document.getElementById('btn-entrar').addEventListener('click', intentarEntrar);
+
+// La consejera espera poder presionar Enter en vez de hacer clic.
+// Detectado como defecto de usabilidad mediante estimacion de errores.
+function entrarConEnter(evento) {
+  if (evento.key === 'Enter') {
+    intentarEntrar();
+  }
+}
+
+document.getElementById('codigo').addEventListener('keydown', entrarConEnter);
+document.getElementById('clave').addEventListener('keydown', entrarConEnter);

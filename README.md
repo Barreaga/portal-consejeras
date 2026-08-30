@@ -47,6 +47,15 @@ npm run qa
 | RN-02 | La cantidad debe ser un entero entre 1 y 99 | `js/pedido.js` → `validarCantidad()` |
 | RN-03 | Los productos agotados no se pueden agregar | `js/pedido.js` → `validarDisponible()` |
 
+## Matriz de pruebas ágiles (Hito 3)
+
+Las pruebas están clasificadas por cuadrantes ágiles en `docs/matriz-pruebas-agiles.md`:
+
+- **Q1** — 12 pruebas unitarias automatizadas en `tests/pedido.test.js`
+- **Q2** — 5 criterios de aceptación en BDD en `tests/aceptacion/pedido.feature`
+
+Los defectos se registran en el tablero Kanban del repositorio (pestaña Proyectos).
+
 ## Trazabilidad
 
 Cada prueba tiene el ID del caso de la RTM en su nombre:
@@ -69,14 +78,28 @@ Así se puede ir de la matriz al código y del código a la matriz.
 │   ├── pedido.js       Las tres reglas de negocio
 │   ├── productos.js    Lista de productos de prueba
 │   ├── login.js        Inicio de sesión
-│   ├── sesion.js       Control de sesión (compartido)
+│   ├── sesion.js       Sesión y registro de pedidos
 │   ├── dashboard.js    Resumen del pedido
 │   └── catalogo.js     Catálogo, pedido y envío
 ├── tests/
-│   └── pedido.test.js  Pruebas de las reglas
+│   ├── pedido.test.js  Pruebas unitarias (Q1)
+│   └── aceptacion/     Criterios BDD (Q2)
+├── docs/
+│   └── matriz-pruebas-agiles.md
 ├── eslint.config.js    Configuración del linter
 └── .github/workflows/  El QA Gate
 ```
+
+## Dónde quedan registrados los pedidos
+
+Al enviar un pedido queda guardado en el navegador, en `localStorage`, bajo la clave `pedidos-enviados`.
+
+Se puede ver de dos formas:
+
+1. **En el dashboard**, en la sección "Mis pedidos enviados".
+2. **En el navegador:** F12 → pestaña *Application* → *Local Storage* → el sitio → clave `pedidos-enviados`.
+
+Cada registro guarda el número de pedido, la consejera, la fecha, los productos y el total.
 
 ## Limitación conocida
 
