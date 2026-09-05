@@ -23,21 +23,69 @@
 
     <h2 class="titulo-seccion mb-3">Catalogo del mes</h2>
 
-    <!-- HU-04: buscar por SKU -->
-    <div class="row mb-4">
-      <div class="col-md-6">
-        <div class="input-group">
-          <input type="text" class="form-control" id="buscar-sku"
-                 placeholder="Buscar por SKU, ejemplo: SKU-0001">
-          <button class="btn btn-secondary" id="btn-buscar">Buscar</button>
-          <button class="btn btn-outline-secondary" id="btn-limpiar">Ver todos</button>
+    <div class="row">
+
+      <!-- HU-09: sidebar de filtros por categoria, precio y orden -->
+      <div class="col-md-3 mb-4">
+        <div class="card p-3">
+          <h6 class="mb-3">Filtros</h6>
+
+          <div class="mb-3">
+            <label for="filtro-categoria" class="form-label small">Categoria</label>
+            <select id="filtro-categoria" class="form-select form-select-sm">
+              <option value="">Todas</option>
+              <option value="Cuidado de la piel">Cuidado de la piel</option>
+              <option value="Cabello">Cabello</option>
+              <option value="Maquillaje">Maquillaje</option>
+              <option value="Fragancias">Fragancias</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Rango de precio (Q)</label>
+            <div class="d-flex gap-2">
+              <input type="text" id="filtro-precio-min" class="form-control form-control-sm" placeholder="Min">
+              <input type="text" id="filtro-precio-max" class="form-control form-control-sm" placeholder="Max">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="filtro-orden" class="form-label small">Ordenar por</label>
+            <select id="filtro-orden" class="form-select form-select-sm">
+              <option value="">Sin orden</option>
+              <option value="precio-asc">Precio: menor a mayor</option>
+              <option value="precio-desc">Precio: mayor a menor</option>
+              <option value="nombre-asc">Nombre: A-Z</option>
+            </select>
+          </div>
+
+          <button id="btn-aplicar-filtros" class="btn btn-sm btn-dark w-100 mb-2">Aplicar filtros</button>
+          <button id="btn-limpiar-filtros" class="btn btn-sm btn-outline-secondary w-100">Limpiar filtros</button>
+
+          <div id="mensaje-filtro" class="alert alert-info small mt-3 d-none" role="alert"></div>
         </div>
       </div>
+
+      <div class="col-md-9">
+
+        <!-- HU-04: buscar por SKU -->
+        <div class="row mb-4">
+          <div class="col-md-8">
+            <div class="input-group">
+              <input type="text" class="form-control" id="buscar-sku"
+                     placeholder="Buscar por SKU, ejemplo: SKU-0001">
+              <button class="btn btn-secondary" id="btn-buscar">Buscar</button>
+              <button class="btn btn-outline-secondary" id="btn-limpiar">Ver todos</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="mensaje-busqueda" class="alert alert-info d-none" role="alert"></div>
+
+        <div class="row g-3" id="lista-productos"></div>
+
+      </div>
     </div>
-
-    <div id="mensaje-busqueda" class="alert alert-info d-none" role="alert"></div>
-
-    <div class="row g-3" id="lista-productos"></div>
 
     <hr class="my-5">
 
@@ -71,6 +119,7 @@
   </div>
 
   <script src="js/productos.js"></script>
+  <script src="js/filtros.js"></script>
   <script src="js/pedido.js"></script>
   <script src="js/sesion.js"></script>
   <script src="js/catalogo.js"></script>

@@ -19,6 +19,38 @@ function mostrarDatos() {
   document.getElementById('total-pedido').textContent = 'Q' + total.toFixed(2);
 
   mostrarAviso(lineas, total);
+  mostrarPedidosEnviados();
+}
+
+// Mis pedidos enviados (Defecto #1, Hito 3)
+function mostrarPedidosEnviados() {
+  const enviados = obtenerPedidosEnviados();
+  const cuerpoTabla = document.getElementById('lineas-pedidos-enviados');
+  const avisoVacio = document.getElementById('sin-pedidos-enviados');
+
+  cuerpoTabla.textContent = '';
+
+  if (enviados.length === 0) {
+    avisoVacio.classList.remove('d-none');
+    return;
+  }
+
+  avisoVacio.classList.add('d-none');
+
+  for (let i = enviados.length - 1; i >= 0; i--) {
+    const pedido = enviados[i];
+    const fila = document.createElement('tr');
+
+    const fecha = new Date(pedido.fecha);
+    const fechaTexto = fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
+
+    fila.innerHTML = '<td>' + pedido.numero + '</td>' +
+      '<td>' + fechaTexto + '</td>' +
+      '<td>' + pedido.productos.length + '</td>' +
+      '<td>Q' + pedido.total.toFixed(2) + '</td>';
+
+    cuerpoTabla.appendChild(fila);
+  }
 }
 
 // Le avisamos cuanto le falta para llegar al minimo (RN-01)

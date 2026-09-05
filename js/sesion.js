@@ -49,3 +49,33 @@ function obtenerPedido() {
 function guardarPedido(lineas) {
   localStorage.setItem('pedido', JSON.stringify(lineas));
 }
+
+// ─── Historial de pedidos enviados (Defecto #1, Hito 3) ───
+// Antes de esto, un pedido enviado se perdia al reiniciar la sesion.
+// Se guarda por separado del pedido en curso, para no mezclarlos.
+
+// Guarda un pedido ya enviado en el historial
+function registrarPedidoEnviado(numero, lineas, total, codigo) {
+  const historial = obtenerPedidosEnviados();
+
+  historial.push({
+    numero: numero,
+    productos: lineas,
+    total: total,
+    codigo: codigo,
+    fecha: new Date().toISOString()
+  });
+
+  localStorage.setItem('pedidosEnviados', JSON.stringify(historial));
+}
+
+// Devuelve el historial de pedidos enviados. Si no hay, devuelve una lista vacia.
+function obtenerPedidosEnviados() {
+  const guardado = localStorage.getItem('pedidosEnviados');
+
+  if (!guardado) {
+    return [];
+  }
+
+  return JSON.parse(guardado);
+}

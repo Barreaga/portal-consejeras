@@ -54,6 +54,24 @@
       Ir al catalogo
     </a>
 
+    <hr class="my-5">
+
+    <h2 class="titulo-seccion mb-3">Mis pedidos enviados</h2>
+    <div id="sin-pedidos-enviados" class="text-muted d-none">Todavia no ha enviado ningun pedido.</div>
+    <div class="table-responsive">
+      <table class="table align-middle" id="tabla-pedidos-enviados">
+        <thead>
+          <tr>
+            <th>Numero</th>
+            <th>Fecha</th>
+            <th>Productos</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="lineas-pedidos-enviados"></tbody>
+      </table>
+    </div>
+
   </div>
 
   <script src="js/pedido.js"></script>
