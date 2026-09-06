@@ -31,7 +31,10 @@ module.exports = [
         exigirSesion: 'readonly',
         cerrarSesion: 'readonly',
         obtenerPedido: 'readonly',
-        guardarPedido: 'readonly'
+        guardarPedido: 'readonly',
+        filtrarProductos: 'readonly',
+        registrarPedidoEnviado: 'readonly',
+        obtenerPedidosEnviados: 'readonly'
       }
     },
     rules: {

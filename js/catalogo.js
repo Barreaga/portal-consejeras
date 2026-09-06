@@ -208,6 +208,8 @@ function enviarPedido() {
   }
 
   const numero = generarNumeroPedido();
+  const total = calcularTotal(lineas);
+  registrarPedidoEnviado(numero, lineas, total, sesion.codigo);
 
   lineas = [];
   guardarPedido(lineas);
@@ -254,6 +256,42 @@ function limpiarBusqueda() {
   dibujarProductos(PRODUCTOS);
 }
 
+// ─── Filtros de categoria, precio y orden (HU-09) ───
+
+function aplicarFiltros() {
+  const opciones = {
+    categoria: document.getElementById('filtro-categoria').value,
+    precioMin: document.getElementById('filtro-precio-min').value,
+    precioMax: document.getElementById('filtro-precio-max').value,
+    orden: document.getElementById('filtro-orden').value
+  };
+
+  // Al aplicar filtros dejamos limpia la busqueda por SKU,
+  // para no mezclar dos formas distintas de reducir la lista.
+  document.getElementById('buscar-sku').value = '';
+  document.getElementById('mensaje-busqueda').classList.add('d-none');
+
+  const resultado = filtrarProductos(PRODUCTOS, opciones);
+  dibujarProductos(resultado);
+
+  const aviso = document.getElementById('mensaje-filtro');
+  if (resultado.length === 0) {
+    aviso.textContent = 'Ningun producto cumple con los filtros seleccionados.';
+    aviso.classList.remove('d-none');
+  } else {
+    aviso.classList.add('d-none');
+  }
+}
+
+function limpiarFiltros() {
+  document.getElementById('filtro-categoria').value = '';
+  document.getElementById('filtro-precio-min').value = '';
+  document.getElementById('filtro-precio-max').value = '';
+  document.getElementById('filtro-orden').value = '';
+  document.getElementById('mensaje-filtro').classList.add('d-none');
+  dibujarProductos(PRODUCTOS);
+}
+
 // ─── Avisos ───
 
 function avisarPedido(texto, tipo) {
@@ -266,3 +304,5 @@ document.getElementById('btn-buscar').addEventListener('click', buscar);
 document.getElementById('btn-limpiar').addEventListener('click', limpiarBusqueda);
 document.getElementById('btn-enviar').addEventListener('click', enviarPedido);
 document.getElementById('btn-salir').addEventListener('click', cerrarSesion);
+document.getElementById('btn-aplicar-filtros').addEventListener('click', aplicarFiltros);
+document.getElementById('btn-limpiar-filtros').addEventListener('click', limpiarFiltros);
