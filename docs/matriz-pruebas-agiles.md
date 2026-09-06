@@ -139,5 +139,3 @@ Los defectos se registran en el tablero Kanban del repositorio (GitHub Projects)
 Cada defecto se abre como un *issue* con: qué pasó, cómo repetirlo, qué se esperaba y qué severidad tiene, según la clasificación del Documento de Arquitectura SQA.
 
 ---
-
-*Hito 3 del proyecto final. Los datos usados son ficticios y con fines académicos.*
