@@ -5,15 +5,50 @@
 const sesion = exigirSesion();
 let lineas = [];
 
+// El catalogo ya no es un arreglo fijo: se llena al iniciar la pagina,
+// con lo que devuelva obtenerProductos() (definida en productos.js).
+let PRODUCTOS = [];
+
 if (sesion) {
   iniciar();
 }
 
-function iniciar() {
-  document.getElementById('nombre-consejera').textContent = sesion.codigo;
+async function iniciar() {
+  // El elemento se llama "nombre-consejera": debe mostrar el nombre,
+  // no el codigo (estaba mal asignado).
+  document.getElementById('nombre-consejera').textContent = sesion.nombre;
   lineas = obtenerPedido();
+
+  document.getElementById('lista-productos').textContent = 'Cargando productos...';
+  PRODUCTOS = await obtenerProductos();
+
+  llenarFiltroCategorias(PRODUCTOS);
   dibujarProductos(PRODUCTOS);
   dibujarPedido();
+}
+
+// Arma las opciones del filtro de categoria a partir de las categorias
+// que realmente existen en los productos cargados. Asi, si en Supabase
+// agregan o quitan una categoria, el filtro no se queda desactualizado
+// (antes estaban escritas a mano en el HTML).
+function llenarFiltroCategorias(productos) {
+  const select = document.getElementById('filtro-categoria');
+  const categorias = [];
+
+  for (let i = 0; i < productos.length; i++) {
+    if (categorias.indexOf(productos[i].categoria) === -1) {
+      categorias.push(productos[i].categoria);
+    }
+  }
+
+  categorias.sort();
+
+  for (let i = 0; i < categorias.length; i++) {
+    const opcion = document.createElement('option');
+    opcion.value = categorias[i];
+    opcion.textContent = categorias[i];
+    select.appendChild(opcion);
+  }
 }
 
 // ─── Catalogo ───

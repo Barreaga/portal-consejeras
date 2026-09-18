@@ -24,7 +24,7 @@ module.exports = [
         supabaseClient: 'readonly',
         // Funciones nuestras que se comparten entre archivos
         MONTO_MINIMO: 'readonly',
-        PRODUCTOS: 'readonly',
+        obtenerProductos: 'readonly',
         validarCantidad: 'readonly',
         validarDisponible: 'readonly',
         calcularTotal: 'readonly',
