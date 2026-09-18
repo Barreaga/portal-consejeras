@@ -19,6 +19,9 @@ module.exports = [
         module: 'writable',
         require: 'readonly',
         console: 'readonly',
+        // Libreria de Supabase (cargada por CDN) y nuestro cliente
+        supabase: 'readonly',
+        supabaseClient: 'readonly',
         // Funciones nuestras que se comparten entre archivos
         MONTO_MINIMO: 'readonly',
         PRODUCTOS: 'readonly',
