@@ -1,16 +1,15 @@
 // login.js
 // Maneja el inicio de sesion.
 //
-// IMPORTANTE: este login es simulado. Como el proyecto no tiene servidor,
-// las credenciales estan aqui y la sesion se guarda en el navegador.
-// Esto NO es seguridad real y esta declarado como limitacion conocida
-// en el Documento SQA (seccion 3.4) y en el Test Plan (seccion 4.3).
-
-const CONSEJERAS = [
-  { codigo: 'C001', clave: 'clave123', nombre: 'Ana Lopez', estado: 'activa' },
-  { codigo: 'C002', clave: 'clave123', nombre: 'Rosa Perez', estado: 'activa' },
-  { codigo: 'C003', clave: 'clave123', nombre: 'Marta Diaz', estado: 'inactiva' }
-];
+// Desde esta version, el codigo y la clave se validan contra la tabla
+// "consejeras" en Supabase (base de datos real), no contra un arreglo
+// fijo en el codigo. La conexion se define en supabaseClient.js, que se
+// carga antes que este archivo (ver login.html).
+//
+// La clave sigue guardada en texto plano dentro de la base de datos.
+// Es una limitacion conocida, documentada en el Documento SQA (seccion
+// 3.4) y en el Test Plan (seccion 4.3), y se revisa como parte de la
+// tarea de reglas de seguridad (NFR-04).
 
 function mostrarMensaje(texto) {
   const caja = document.getElementById('mensaje');
@@ -18,16 +17,25 @@ function mostrarMensaje(texto) {
   caja.classList.remove('d-none');
 }
 
-function buscarConsejera(codigo) {
-  for (let i = 0; i < CONSEJERAS.length; i++) {
-    if (CONSEJERAS[i].codigo === codigo) {
-      return CONSEJERAS[i];
-    }
+// Busca la consejera en Supabase por su codigo.
+// Es "async" porque hay que esperar la respuesta de la base de datos,
+// a diferencia de antes, que buscaba al instante en un arreglo.
+async function buscarConsejera(codigo) {
+  const { data, error } = await supabaseClient
+    .from('consejeras')
+    .select('codigo, clave, nombre, estado')
+    .eq('codigo', codigo)
+    .maybeSingle();
+
+  if (error) {
+    return null;
   }
-  return null;
+
+  return data;
 }
 
-function intentarEntrar() {
+async function intentarEntrar() {
+  const boton = document.getElementById('btn-entrar');
   const codigo = document.getElementById('codigo').value.trim();
   const clave = document.getElementById('clave').value;
 
@@ -37,17 +45,23 @@ function intentarEntrar() {
     return;
   }
 
-  const consejera = buscarConsejera(codigo);
+  // Apagamos el boton mientras esperamos la respuesta de Supabase,
+  // para que no se pueda dar doble clic y mandar dos consultas.
+  boton.disabled = true;
+
+  const consejera = await buscarConsejera(codigo);
 
   // CP-03: mismo mensaje para usuario que no existe y contrasena mala,
   // asi no le decimos a nadie cual de los dos fallo
   if (!consejera || consejera.clave !== clave) {
     mostrarMensaje('Codigo o contrasena incorrectos.');
+    boton.disabled = false;
     return;
   }
 
   if (consejera.estado !== 'activa') {
     mostrarMensaje('Su cuenta no esta habilitada.');
+    boton.disabled = false;
     return;
   }
 

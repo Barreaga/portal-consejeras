@@ -1,21 +1,26 @@
 // productos.js
-// Lista de productos de prueba. Todos los datos son inventados.
-// Sirve como "base de datos" del proyecto.
-//
-// HU-09: se agrego el campo "categoria" para poder filtrar el catalogo
-// por categoria, rango de precio y orden.
+// Antes el catalogo era un arreglo escrito a mano. Desde esta version se
+// trae de la tabla "productos" en Supabase (base de datos real).
+// Requiere que supabaseClient.js se cargue antes que este archivo.
 
-const PRODUCTOS = [
-  { sku: 'SKU-0001', nombre: 'Crema Hidratante', precio: 133.33, agotado: false, categoria: 'Cuidado de la piel' },
-  { sku: 'SKU-0002', nombre: 'Locion Corporal', precio: 100.00, agotado: false, categoria: 'Cuidado de la piel' },
-  { sku: 'SKU-0003', nombre: 'Perfume Floral', precio: 275.00, agotado: true, categoria: 'Fragancias' },
-  { sku: 'SKU-0004', nombre: 'Set de Labiales', precio: 189.50, agotado: false, categoria: 'Maquillaje' },
-  { sku: 'SKU-0005', nombre: 'Shampoo Reparador', precio: 85.00, agotado: false, categoria: 'Cabello' },
-  { sku: 'SKU-0006', nombre: 'Mascarilla Facial', precio: 145.75, agotado: true, categoria: 'Cuidado de la piel' },
-  { sku: 'SKU-0007', nombre: 'Base de Maquillaje', precio: 210.00, agotado: false, categoria: 'Maquillaje' },
-  { sku: 'SKU-0008', nombre: 'Kit de Brochas', precio: 320.00, agotado: false, categoria: 'Maquillaje' }
-];
+// Trae el catalogo completo desde Supabase, ordenado por SKU.
+// Es "async" por la misma razon que buscarConsejera() en login.js:
+// hay que esperar la respuesta de la base de datos.
+async function obtenerProductos() {
+  const { data, error } = await supabaseClient
+    .from('productos')
+    .select('sku, nombre, precio, categoria, agotado')
+    .order('sku');
 
+  if (error) {
+    return [];
+  }
+
+  return data;
+}
+
+// Esta parte solo se usa cuando corremos las pruebas con Node.
+// En el navegador no hace nada.
 if (typeof module !== 'undefined') {
-  module.exports = { PRODUCTOS };
+  module.exports = { obtenerProductos };
 }

@@ -9,7 +9,9 @@ if (sesion) {
 }
 
 function mostrarDatos() {
-  document.getElementById('nombre-consejera').textContent = sesion.codigo;
+  // El elemento se llama "nombre-consejera": debe mostrar el nombre,
+  // no el codigo (estaba mal asignado).
+  document.getElementById('nombre-consejera').textContent = sesion.nombre;
   document.getElementById('saludo').textContent = sesion.nombre;
 
   const lineas = obtenerPedido();
