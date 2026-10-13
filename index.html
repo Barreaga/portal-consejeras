@@ -9,7 +9,6 @@
   <script src="js/tema.js"></script>
 </head>
 <body>
-
   <nav class="navbar navbar-dark barra-principal">
     <div class="container">
       <span class="navbar-brand mb-0 h1">Portal de Consejeras</span>
@@ -20,32 +19,108 @@
     </div>
   </nav>
 
-  <header class="container text-center py-5">
-    <h1 class="titulo-seccion">Haz crecer tu negocio</h1>
-    <p class="lead">
-      Unete al programa de consejeras y arma tu pedido en linea,
-      desde tu celular o computadora.
-    </p>
-    <a href="login.html" class="btn btn-lg btn-principal">
-      Ingresar al portal
-    </a>
+  <!-- Banner principal (HU-01) -->
+  <header class="seccion-portada">
+    <div class="container py-5">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-lg-6 order-2 order-lg-1">
+          <p class="etiqueta-seccion mb-2">Catalogo del mes</p>
+          <h1 class="titulo-seccion display-5 mb-3">Haz crecer tu negocio</h1>
+          <p class="lead mb-4">
+            Unete al programa de consejeras y arma tu pedido en linea,
+            desde tu celular o computadora.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="login.html" class="btn btn-lg btn-principal">
+              Ingresar al portal
+            </a>
+            <a href="#vende" class="btn btn-lg btn-outline-secondary">Quiero vender</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <img src="img/fotos/inicio-banner.jpg" class="img-fluid rounded-4 shadow foto-portada"
+               width="960" height="640" alt="Mujer sonriente aplicandose crema en el rostro">
+        </div>
+      </div>
+    </div>
   </header>
+
+  <!-- Datos del catalogo actual -->
+  <section class="franja-datos py-4">
+    <div class="container">
+      <div class="row text-center g-3">
+        <div class="col-4">
+          <p class="dato-numero mb-0">16</p>
+          <p class="mb-0 small">productos en el catalogo</p>
+        </div>
+        <div class="col-4">
+          <p class="dato-numero mb-0">6</p>
+          <p class="mb-0 small">categorias</p>
+        </div>
+        <div class="col-4">
+          <p class="dato-numero mb-0">Q400</p>
+          <p class="mb-0 small">de pedido minimo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categorias del catalogo -->
+  <section class="container py-5">
+    <h2 class="titulo-seccion text-center mb-4">Nuestras categorias</h2>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-piel.jpg" width="960" height="640" loading="lazy" alt="Cuidado de la piel">
+          <span>Cuidado de la piel</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-maquillaje.jpg" width="960" height="640" loading="lazy" alt="Maquillaje">
+          <span>Maquillaje</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-fragancias.jpg" width="960" height="642" loading="lazy" alt="Fragancias">
+          <span>Fragancias</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-cabello.jpg" width="960" height="640" loading="lazy" alt="Cabello">
+          <span>Cabello</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-limpieza.jpg" width="960" height="640" loading="lazy" alt="Limpieza del hogar">
+          <span>Limpieza</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="login.html" class="categoria">
+          <img src="img/fotos/categoria-masculino.jpg" width="960" height="640" loading="lazy" alt="Cuidado masculino">
+          <span>Cuidado masculino</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <section class="container py-4">
     <h2 class="titulo-seccion text-center mb-4">Como funciona</h2>
     <div class="row g-4">
-
       <div class="col-md-4">
-        <div class="card h-100 p-3">
+        <div class="card h-100 p-3 border-0 shadow-sm">
           <h5 class="card-title">1. Registrate</h5>
           <p class="card-text">
             Recibes tu codigo de consejera y tu acceso al portal.
           </p>
         </div>
       </div>
-
       <div class="col-md-4">
-        <div class="card h-100 p-3">
+        <div class="card h-100 p-3 border-0 shadow-sm">
           <h5 class="card-title">2. Arma tu pedido</h5>
           <p class="card-text">
             Revisas el catalogo del mes y agregas los productos que necesitas.
@@ -53,24 +128,93 @@
           </p>
         </div>
       </div>
-
       <div class="col-md-4">
-        <div class="card h-100 p-3">
+        <div class="card h-100 p-3 border-0 shadow-sm">
           <h5 class="card-title">3. Envialo</h5>
           <p class="card-text">
             Confirmas tu pedido y recibes tu numero de confirmacion.
           </p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <footer class="pie-pagina text-center">
+  <!-- Invitacion a vender -->
+  <section id="vende" class="container py-5">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <img src="img/fotos/vende-con-nosotros.jpg" class="img-fluid rounded-4 shadow-sm"
+             width="960" height="640" loading="lazy" alt="Mujer revisando pedidos en su celular con bolsas de compra">
+      </div>
+      <div class="col-lg-6">
+        <p class="etiqueta-seccion mb-2">Vende con nosotros</p>
+        <h2 class="titulo-seccion mb-3">Tu negocio, a tu ritmo</h2>
+        <ul class="lista-beneficios mb-4">
+          <li>Haces tu pedido desde el portal, sin papeles.</li>
+          <li>Ves el total y cuanto te falta para el minimo mientras armas el pedido.</li>
+          <li>Consultas tus pedidos enviados cuando quieras.</li>
+        </ul>
+        <a href="login.html" class="btn btn-principal">Entrar a mi cuenta</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonios (ficticios, ver pie de pagina) -->
+  <section class="franja-testimonios py-5">
     <div class="container">
-      <p class="mb-0">Proyecto</p>
+      <h2 class="titulo-seccion text-center mb-4">Lo que dicen las consejeras</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <figure class="testimonio h-100 mb-0">
+            <blockquote class="mb-3">"Antes anotaba los pedidos en un cuaderno. Ahora lo hago desde el celular en unos minutos."</blockquote>
+            <figcaption class="d-flex align-items-center gap-2">
+              <span class="avatar">AL</span>
+              <span>A. L.<br><small class="text-body-secondary">Guatemala</small></span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure class="testimonio h-100 mb-0">
+            <blockquote class="mb-3">"Me gusta que me avise cuanto me falta para llegar al minimo."</blockquote>
+            <figcaption class="d-flex align-items-center gap-2">
+              <span class="avatar">RP</span>
+              <span>R. P.<br><small class="text-body-secondary">Quetzaltenango</small></span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="col-md-4">
+          <figure class="testimonio h-100 mb-0">
+            <blockquote class="mb-3">"Puedo revisar mis pedidos enviados sin llamar a nadie."</blockquote>
+            <figcaption class="d-flex align-items-center gap-2">
+              <span class="avatar">MD</span>
+              <span>M. D.<br><small class="text-body-secondary">Escuintla</small></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie-pagina mt-0">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <p class="fw-semibold mb-2">Portal de Consejeras</p>
+          <p class="small mb-0">Proyecto academico del curso de calidad de software.</p>
+        </div>
+        <div class="col-md-4">
+          <p class="fw-semibold mb-2">Enlaces</p>
+          <ul class="list-unstyled small mb-0">
+            <li><a href="login.html">Iniciar sesion</a></li>
+            <li><a href="#vende">Vende con nosotros</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <p class="fw-semibold mb-2">Aviso</p>
+          <p class="small mb-0">Los productos, precios y testimonios son ficticios. Las fotos son de StockSnap con licencia CC0.</p>
+        </div>
+      </div>
     </div>
   </footer>
-
 </body>
 </html>

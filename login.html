@@ -17,37 +17,49 @@
     </div>
   </nav>
 
-  <div class="container" style="max-width: 420px; margin-top: 60px;">
-    <div class="card border-0 shadow-sm p-4">
-      <h3 class="titulo-seccion text-center mb-4">Iniciar sesion</h3>
-
-      <div class="mb-3">
-        <label for="codigo" class="form-label">Codigo de consejera</label>
-        <input type="text" class="form-control" id="codigo" placeholder="Ejemplo: 3311"
-               inputmode="numeric" autocomplete="username" aria-describedby="ayuda-codigo">
-        <div id="ayuda-codigo" class="form-text">Es el codigo de 4 numeros que le dio el programa.</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="clave" class="form-label">Contrasena</label>
-        <div class="input-group">
-          <input type="password" class="form-control" id="clave"
-                 autocomplete="current-password" aria-describedby="ayuda-clave">
-          <button id="btn-ver-clave" class="btn btn-outline-secondary" type="button"
-                  aria-controls="clave" aria-pressed="false">Mostrar</button>
+  <div class="container py-5">
+    <div class="card border-0 shadow-sm overflow-hidden mx-auto" style="max-width: 960px;">
+      <div class="row g-0">
+        <div class="col-lg-6 d-none d-lg-block banner-foto rounded-0">
+          <img src="img/fotos/login-modelo.jpg" width="960" height="640" alt="Modelo aplicandose un serum facial">
+          <div class="contenido d-flex flex-column justify-content-end h-100">
+            <p class="etiqueta-seccion text-white mb-1">Portal de Consejeras</p>
+            <h2 class="h3 mb-2">Tu pedido del mes, en minutos</h2>
+            <p class="mb-0">Revisa el catalogo, arma tu pedido y envialo desde aqui.</p>
+          </div>
         </div>
-        <div id="ayuda-clave" class="form-text">Distingue entre mayusculas y minusculas.</div>
+        <div class="col-lg-6 p-4 p-md-5">
+          <h3 class="titulo-seccion text-center mb-4">Iniciar sesion</h3>
+
+          <div class="mb-3">
+            <label for="codigo" class="form-label">Codigo de consejera</label>
+            <input type="text" class="form-control" id="codigo" placeholder="Ejemplo: 3311"
+                   inputmode="numeric" autocomplete="username" aria-describedby="ayuda-codigo">
+            <div id="ayuda-codigo" class="form-text">Es el codigo de 4 numeros que le dio el programa.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="clave" class="form-label">Contrasena</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="clave"
+                     autocomplete="current-password" aria-describedby="ayuda-clave">
+              <button id="btn-ver-clave" class="btn btn-outline-secondary" type="button"
+                      aria-controls="clave" aria-pressed="false">Mostrar</button>
+            </div>
+            <div id="ayuda-clave" class="form-text">Distingue entre mayusculas y minusculas.</div>
+          </div>
+
+          <div id="mensaje" class="alert alert-danger d-none" role="alert"></div>
+
+          <button id="btn-entrar" class="btn btn-principal w-100">
+            Entrar
+          </button>
+
+          <p class="text-muted small mt-3 mb-0 text-center">
+            Si olvido su contrasena, comuniquese con el equipo del programa.
+          </p>
+        </div>
       </div>
-
-      <div id="mensaje" class="alert alert-danger d-none" role="alert"></div>
-
-      <button id="btn-entrar" class="btn btn-principal w-100">
-        Entrar
-      </button>
-
-      <p class="text-muted small mt-3 mb-0 text-center">
-        Si olvido su contrasena, comuniquese con el equipo del programa.
-      </p>
     </div>
   </div>
 
