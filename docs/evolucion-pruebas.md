@@ -73,6 +73,10 @@ En la misma rama se automatizaron los casos de la RTM que quedaban como manuales
 
 También se automatizó la matriz de compatibilidad del NFR-06 (Chrome, Firefox y Edge, en escritorio y celular): 24 de 24 aprobadas. El Firefox que descarga Playwright no se pudo abrir en la computadora porque Windows bloquea el ejecutable, así que se usó el Firefox instalado (canal moz-firefox). Al principio fallaron 4 pruebas en Firefox con el error "The operation is insecure.". La causa estaba en la prueba, no en el sitio: el script que pone la sesión también corría en la página en blanco inicial, donde Firefox no deja usar sessionStorage. Se corrigió en la prueba.
 
+## Prueba con la base de datos real
+
+Después de ejecutar sql/registrar-pedido.sql en Supabase, Brandon Arreaga hizo a mano el flujo completo con la base real: inició sesión, armó un pedido de Q400.00 exactos (4 x SKU 0002) y dio doble clic en "Enviar pedido". En la tabla pedidos quedó un solo registro, PED-2026-8675, con total Q400.00 y una línea. Con esto CP-02, CP-17 y CP-18 quedaron aprobados y la RTM llegó a 19 de 19 casos aprobados.
+
 ## El defecto real y su resolución
 
 Issue #1, "Los pedidos enviados no se conservan al reiniciar la aplicación". Severidad alta, historia HU-07.
