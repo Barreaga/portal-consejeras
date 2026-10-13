@@ -24,35 +24,55 @@ function mostrarDatos() {
   mostrarPedidosEnviados();
 }
 
-// Mis pedidos enviados (Defecto #1, Hito 3)
-function mostrarPedidosEnviados() {
-  const enviados = obtenerPedidosEnviados();
+// Mis pedidos enviados (Defecto #1, Hito 3). Desde el Hito 2 (fase 3)
+// se leen de Supabase, solo los de la consejera que inicio sesion.
+async function mostrarPedidosEnviados() {
   const cuerpoTabla = document.getElementById('lineas-pedidos-enviados');
   const avisoVacio = document.getElementById('sin-pedidos-enviados');
 
   cuerpoTabla.textContent = '';
+  const resultado = await obtenerPedidosEnviados(sesion.codigo);
 
-  if (enviados.length === 0) {
+  if (!resultado.ok) {
+    avisoVacio.textContent = resultado.mensaje;
+    avisoVacio.classList.remove('d-none');
+    return;
+  }
+
+  if (resultado.pedidos.length === 0) {
     avisoVacio.classList.remove('d-none');
     return;
   }
 
   avisoVacio.classList.add('d-none');
 
-  for (let i = enviados.length - 1; i >= 0; i--) {
-    const pedido = enviados[i];
-    const fila = document.createElement('tr');
-
-    const fecha = new Date(pedido.fecha);
-    const fechaTexto = fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
-
-    fila.innerHTML = '<td>' + pedido.numero + '</td>' +
-      '<td>' + fechaTexto + '</td>' +
-      '<td>' + pedido.productos.length + '</td>' +
-      '<td>Q' + pedido.total.toFixed(2) + '</td>';
-
-    cuerpoTabla.appendChild(fila);
+  // Vienen ordenados del mas reciente al mas antiguo
+  for (let i = 0; i < resultado.pedidos.length; i++) {
+    cuerpoTabla.appendChild(crearFilaPedido(resultado.pedidos[i]));
   }
+}
+
+// Usamos textContent y no innerHTML: los datos vienen de la base y
+// cualquiera con la llave publishable puede crear un pedido, asi que un
+// numero de pedido con codigo HTML no debe ejecutarse (NFR-04a).
+function crearFilaPedido(pedido) {
+  const fila = document.createElement('tr');
+  const fecha = new Date(pedido.fecha);
+
+  const textos = [
+    pedido.numero,
+    fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString(),
+    String(pedido.productos),
+    'Q' + pedido.total.toFixed(2)
+  ];
+
+  for (let i = 0; i < textos.length; i++) {
+    const celda = document.createElement('td');
+    celda.textContent = textos[i];
+    fila.appendChild(celda);
+  }
+
+  return fila;
 }
 
 // Le avisamos cuanto le falta para llegar al minimo (RN-01)

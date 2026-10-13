@@ -127,6 +127,11 @@ function crearControlesAgregar(producto) {
 // ─── Agregar al pedido (HU-05) ───
 
 function agregarProducto(producto, cantidadEscrita) {
+  if (enviando) {
+    avisarPedido('Espere a que termine de enviarse su pedido.', 'alert-warning');
+    return;
+  }
+
   // RN-03: revisar que no este agotado
   const disponible = validarDisponible(producto);
 
@@ -217,6 +222,11 @@ function crearFila(linea, posicion) {
 }
 
 function quitarLinea(posicion) {
+  if (enviando) {
+    avisarPedido('Espere a que termine de enviarse su pedido.', 'alert-warning');
+    return;
+  }
+
   lineas.splice(posicion, 1);
   guardarPedido(lineas);
   dibujarPedido();
@@ -224,13 +234,23 @@ function quitarLinea(posicion) {
 }
 
 // ─── Enviar el pedido (HU-07) ───
+// El pedido enviado se guarda en Supabase (registrarPedidoEnviado, en
+// sesion.js). El carrito solo se vacia cuando Supabase confirma; si algo
+// falla, el pedido se queda como estaba y la consejera puede reintentar.
 
-function enviarPedido() {
+// CP-18: mientras se espera la respuesta no se acepta otro envio
+let enviando = false;
+
+async function enviarPedido() {
+  if (enviando) {
+    return;
+  }
+
   const boton = document.getElementById('btn-enviar');
-
-  // CP-18: apagamos el boton para que el doble clic no genere dos pedidos
+  enviando = true;
   boton.disabled = true;
 
+  // RN-01: se revisa aqui antes de usar la red (la base lo vuelve a revisar)
   const revision = puedeEnviarse({
     sesionActiva: true,
     lineas: lineas
@@ -238,20 +258,42 @@ function enviarPedido() {
 
   if (!revision.permitido) {
     avisarPedido(revision.mensaje, 'alert-danger');
-    boton.disabled = false;
+    terminarEnvio();
     return;
   }
 
-  const numero = generarNumeroPedido();
-  const total = calcularTotal(lineas);
-  registrarPedidoEnviado(numero, lineas, total, sesion.codigo);
+  avisarPedido('Enviando su pedido...', 'alert-info');
 
+  // Con el mismo carrito se reutiliza el mismo numero, asi un reintento
+  // no crea un pedido duplicado
+  let numero = numeroParaEnviar(lineas, generarNumeroPedido);
+  let resultado = await registrarPedidoEnviado(numero, lineas, sesion.codigo);
+
+  // El numero ya lo tenia otro pedido: se genera uno nuevo una sola vez
+  if (resultado.repetido) {
+    limpiarPedidoPendiente();
+    numero = numeroParaEnviar(lineas, generarNumeroPedido);
+    resultado = await registrarPedidoEnviado(numero, lineas, sesion.codigo);
+  }
+
+  if (!resultado.ok) {
+    avisarPedido(resultado.mensaje, 'alert-danger');
+    terminarEnvio();
+    return;
+  }
+
+  limpiarPedidoPendiente();
   lineas = [];
   guardarPedido(lineas);
   dibujarPedido();
 
   avisarPedido('Pedido enviado. Su numero de confirmacion es ' + numero, 'alert-success');
-  boton.disabled = false;
+  terminarEnvio();
+}
+
+function terminarEnvio() {
+  enviando = false;
+  document.getElementById('btn-enviar').disabled = false;
 }
 
 // ─── Buscar por SKU (HU-04) ───
