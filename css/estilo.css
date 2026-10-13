@@ -72,3 +72,12 @@ body {
 .table td {
   white-space: nowrap;
 }
+
+/* Modo oscuro: Bootstrap cambia sus colores solo; aqui ajustamos los nuestros */
+[data-bs-theme="dark"] {
+  --color-claro: #1d1b1f;
+}
+
+[data-bs-theme="dark"] .titulo-seccion {
+  color: #d9b3d6;
+}

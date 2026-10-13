@@ -146,7 +146,7 @@ function crearControlesAgregar(producto) {
   campo.id = 'cant-' + producto.sku;
 
   const boton = document.createElement('button');
-  boton.className = 'btn btn-outline-dark';
+  boton.className = 'btn btn-outline-secondary';
   boton.textContent = 'Agregar';
   boton.addEventListener('click', function () {
     agregarProducto(producto, campo.value);
