@@ -7,10 +7,12 @@
     "lint": "eslint .",
     "test": "node --test \"tests/*.test.js\" \"tests/integracion/*.test.js\"",
     "test:seguridad": "node --test \"tests/seguridad/*.test.js\"",
-    "qa": "npm run lint && npm test"
+    "qa": "npm run lint && npm test",
+    "test:e2e": "playwright test"
   },
   "license": "UNLICENSED",
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "eslint": "^9.14.0"
   }
 }
