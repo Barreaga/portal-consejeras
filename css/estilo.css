@@ -36,3 +36,39 @@ body {
   padding: 24px 0;
   margin-top: 48px;
 }
+
+/* Boton con el color del portal (antes estaba repetido en cada pagina) */
+.btn-principal {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: #fff;
+}
+
+.btn-principal:hover,
+.btn-principal:focus {
+  background-color: #573355;
+  border-color: #573355;
+  color: #fff;
+}
+
+/* Imagen del producto en la tarjeta del catalogo */
+.imagen-producto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+}
+
+.producto-agotado .imagen-producto {
+  filter: grayscale(100%);
+}
+
+.table thead th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* En celular la tabla se desplaza dentro de su caja en vez de partir el texto */
+.table td {
+  white-space: nowrap;
+}

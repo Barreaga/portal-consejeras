@@ -15,7 +15,10 @@ const PUERTO = 4173;
 const TIPOS = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8'
+  '.css': 'text/css; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.jpg': 'image/jpeg',
+  '.png': 'image/png'
 };
 
 const servidor = http.createServer(function (pedido, respuesta) {
