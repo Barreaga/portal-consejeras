@@ -1,6 +1,6 @@
 # Créditos de imágenes
 
-## Imágenes actuales
+## Ilustraciones de los productos
 
 Las imágenes de los productos son ilustraciones en formato SVG creadas para este proyecto. Están en `img/productos/` y su nombre es el SKU del producto (por ejemplo `0004.svg` es el Set de Labiales). No se usó ninguna imagen de terceros ni enlaces a imágenes de otros sitios, así que no hay derechos reservados de por medio.
 
@@ -25,7 +25,27 @@ Las imágenes de los productos son ilustraciones en formato SVG creadas para est
 | 0015 | Desodorante en Barra | img/productos/0015.svg | Ilustración creada para el proyecto |
 | 0016 | Kit de Afeitado | img/productos/0016.svg | Ilustración creada para el proyecto |
 
-## Cómo cambiarlas por fotos reales
+## Fotos de las páginas
+
+Las fotos de la página de inicio, del login, del dashboard y del catálogo están en `img/fotos/`. Todas son de StockSnap (stocksnap.io) con licencia CC0 1.0 (dominio público): se pueden usar, modificar y publicar sin pedir permiso y sin obligación de dar crédito. Igual dejamos el autor y el enlace de cada una. Se descargaron en la versión de 960 píxeles de ancho que ofrece el sitio y se guardaron como JPG optimizado. Se descartaron las fotos donde se veía una marca real (por ejemplo, perfumes y labiales con logotipo).
+
+| Archivo | Dónde se usa | Autor | Enlace |
+|---|---|---|---|
+| img/fotos/inicio-banner.jpg | Banner de la página de inicio | Authentic Stock | https://stocksnap.io/photo/woman-skin-HIZNJOUVSY |
+| img/fotos/login-modelo.jpg | Foto del login (solo en pantallas grandes) | Authentic Stock | https://stocksnap.io/photo/beauty-skincare-U5MEPX1OVV |
+| img/fotos/dashboard-campana.jpg | Banner "Campana del mes" del dashboard | Authentic Stock | https://stocksnap.io/photo/woman-skin-JF6DZWDDO3 |
+| img/fotos/catalogo-banner.jpg | Banner del catálogo | Alexandre Vanier | https://stocksnap.io/photo/beauty-makeup-34MSYVUYS0 |
+| img/fotos/categoria-piel.jpg | Categoría Cuidado de la piel | Authentic Stock | https://stocksnap.io/photo/beauty-skincare-CC9TYE8VJY |
+| img/fotos/categoria-maquillaje.jpg | Categoría Maquillaje | Beauty and Fashion | https://stocksnap.io/photo/beauty-makeup-MKGGIJ360Q |
+| img/fotos/categoria-fragancias.jpg | Categoría Fragancias | Ahmed Aqtai | https://stocksnap.io/photo/bottle-perfume-CV6AI5T3K5 |
+| img/fotos/categoria-cabello.jpg | Categoría Cabello | Alex Suprun | https://stocksnap.io/photo/woman-girl-4BG0M37XLV |
+| img/fotos/categoria-limpieza.jpg | Categoría Limpieza | Burst | https://stocksnap.io/photo/simple-home-UQOXY4POK8 |
+| img/fotos/categoria-masculino.jpg | Categoría Cuidado masculino | Direct Media | https://stocksnap.io/photo/man-shaving-BFASQPNDEK |
+| img/fotos/vende-con-nosotros.jpg | Sección "Vende con nosotros" del inicio | Bruce Mars | https://stocksnap.io/photo/woman-mobile-Q93BUD2Z3Z |
+
+Los testimonios de la página de inicio son ficticios, igual que los productos y los precios. Usan iniciales en lugar de fotos de personas, y el pie de página lo aclara.
+
+## Cómo cambiar las ilustraciones de los productos por fotos
 
 1. Buscar las fotos en un banco con licencia libre: Unsplash (unsplash.com/license) o Pexels (pexels.com/license). Las dos permiten usarlas gratis sin pedir permiso. No usar fotos de marcas reales ni de tiendas en línea.
 2. Recortarlas en proporción 5:4 (por ejemplo 500 x 400 píxeles) y guardarlas en `img/productos/` como `.jpg` con el SKU como nombre: `0001.jpg`, `0002.jpg`, etc.
