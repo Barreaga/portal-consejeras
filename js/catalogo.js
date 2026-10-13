@@ -54,10 +54,10 @@ function llenarFiltroCategorias(productos) {
 // ─── Catalogo ───
 
 // Imagen de cada producto: img/productos/<SKU><FORMATO_IMAGEN>.
-// Para usar fotos reales, se guardan como 0001.jpg, 0002.jpg, etc. y se
-// cambia FORMATO_IMAGEN a '.jpg' (ver docs/creditos-imagenes.md).
+// Son fotos con licencia CC0 (ver docs/creditos-imagenes.md). Si un
+// producto nuevo no tiene foto, se muestra sin-imagen.svg.
 const CARPETA_IMAGENES = 'img/productos/';
-const FORMATO_IMAGEN = '.svg';
+const FORMATO_IMAGEN = '.jpg';
 
 function dibujarProductos(lista) {
   const contenedor = document.getElementById('lista-productos');
@@ -123,8 +123,8 @@ function crearImagen(producto) {
   imagen.className = 'card-img-top imagen-producto';
   imagen.src = CARPETA_IMAGENES + producto.sku + FORMATO_IMAGEN;
   imagen.alt = producto.nombre;
-  imagen.width = 200;
-  imagen.height = 160;
+  imagen.width = 600;
+  imagen.height = 480;
   imagen.loading = 'lazy';
 
   // Si el producto todavia no tiene imagen, se usa la de respaldo

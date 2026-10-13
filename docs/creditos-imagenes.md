@@ -1,29 +1,31 @@
 # Créditos de imágenes
 
-## Ilustraciones de los productos
+## Fotos de los productos
 
-Las imágenes de los productos son ilustraciones en formato SVG creadas para este proyecto. Están en `img/productos/` y su nombre es el SKU del producto (por ejemplo `0004.svg` es el Set de Labiales). No se usó ninguna imagen de terceros ni enlaces a imágenes de otros sitios, así que no hay derechos reservados de por medio.
+Cada producto del catálogo tiene una foto en `img/productos/`, con el SKU como nombre (por ejemplo `0004.jpg` es el Set de Labiales). Son fotos de StockSnap con licencia CC0 1.0, igual que las de las páginas (ver la sección siguiente). No son fotos del producto exacto: se eligieron fotos que representan el tipo de producto y en las que no se ve ninguna marca real. Se recortaron en proporción 5:4 (600 x 480 píxeles) para que todas las tarjetas tengan el mismo tamaño.
 
-`img/productos/sin-imagen.svg` es la imagen que aparece si un producto nuevo de la base de datos todavía no tiene imagen.
+| SKU | Producto | Archivo | Autor | Enlace |
+|---|---|---|---|---|
+| 0001 | Crema Hidratante | img/productos/0001.jpg | Authentic Stock | https://stocksnap.io/photo/woman-skin-8GLBROK819 |
+| 0002 | Locion Corporal | img/productos/0002.jpg | Authentic Stock | https://stocksnap.io/photo/woman-skin-1KDQSTZVIX |
+| 0003 | Perfume Floral | img/productos/0003.jpg | Ahmed Aqtai | https://stocksnap.io/photo/bottle-perfume-CV6AI5T3K5 |
+| 0004 | Set de Labiales | img/productos/0004.jpg | Burst | https://stocksnap.io/photo/woman-lipstick-UUW7JAWUU1 |
+| 0005 | Shampoo Reparador | img/productos/0005.jpg | Authentic Stock | https://stocksnap.io/photo/beauty-woman-K3V44MLA0J |
+| 0006 | Mascarilla Facial | img/productos/0006.jpg | Authentic Stock | https://stocksnap.io/photo/woman-skin-NQCCKXHAZQ |
+| 0007 | Base de Maquillaje | img/productos/0007.jpg | Authentic Stock | https://stocksnap.io/photo/beauty-skincare-PBIACLTCLJ |
+| 0008 | Kit de Brochas | img/productos/0008.jpg | Freestocks.org | https://stocksnap.io/photo/makeup-brush-EE2H5SKEPA |
+| 0009 | Desinfectante Multiusos | img/productos/0009.jpg | Michal Jarmoluk | https://stocksnap.io/photo/mop-sweeping-J4C1WJDMMU |
+| 0010 | Cloro Concentrado | img/productos/0010.jpg | Jay Mantri | https://stocksnap.io/photo/clothes-shirts-BD2F94946C |
+| 0011 | Jabon Liquido para Trastes | img/productos/0011.jpg | Matt Bango | https://stocksnap.io/photo/farmhouse-kitchen-QSX4WH8BDB |
+| 0012 | Aromatizante de Ambiente | img/productos/0012.jpg | Christian Mackie | https://stocksnap.io/photo/candle-decoration-OVEFAJUOXU |
+| 0013 | Locion 212 Hombre | img/productos/0013.jpg | George Becker | https://stocksnap.io/photo/shadow-photography-EU7N3R01MB |
+| 0014 | Gel para Cabello | img/productos/0014.jpg | Jonas Svidras | https://stocksnap.io/photo/men-nasa-EZIOMSHSX4 |
+| 0015 | Desodorante en Barra | img/productos/0015.jpg | Healthy Living | https://stocksnap.io/photo/bath-soap-BAP2TUBT3D |
+| 0016 | Kit de Afeitado | img/productos/0016.jpg | Nick Demou | https://stocksnap.io/photo/barbershop-brush-GZP9ZEQPFL |
 
-| SKU | Producto | Archivo | Origen |
-|---|---|---|---|
-| 0001 | Crema Hidratante | img/productos/0001.svg | Ilustración creada para el proyecto |
-| 0002 | Locion Corporal | img/productos/0002.svg | Ilustración creada para el proyecto |
-| 0003 | Perfume Floral | img/productos/0003.svg | Ilustración creada para el proyecto |
-| 0004 | Set de Labiales | img/productos/0004.svg | Ilustración creada para el proyecto |
-| 0005 | Shampoo Reparador | img/productos/0005.svg | Ilustración creada para el proyecto |
-| 0006 | Mascarilla Facial | img/productos/0006.svg | Ilustración creada para el proyecto |
-| 0007 | Base de Maquillaje | img/productos/0007.svg | Ilustración creada para el proyecto |
-| 0008 | Kit de Brochas | img/productos/0008.svg | Ilustración creada para el proyecto |
-| 0009 | Desinfectante Multiusos | img/productos/0009.svg | Ilustración creada para el proyecto |
-| 0010 | Cloro Concentrado | img/productos/0010.svg | Ilustración creada para el proyecto |
-| 0011 | Jabon Liquido para Trastes | img/productos/0011.svg | Ilustración creada para el proyecto |
-| 0012 | Aromatizante de Ambiente | img/productos/0012.svg | Ilustración creada para el proyecto |
-| 0013 | Locion 212 Hombre | img/productos/0013.svg | Ilustración creada para el proyecto |
-| 0014 | Gel para Cabello | img/productos/0014.svg | Ilustración creada para el proyecto |
-| 0015 | Desodorante en Barra | img/productos/0015.svg | Ilustración creada para el proyecto |
-| 0016 | Kit de Afeitado | img/productos/0016.svg | Ilustración creada para el proyecto |
+`img/productos/sin-imagen.svg` es una ilustración creada para el proyecto. Aparece si se agrega un producto nuevo a la base de datos y todavía no tiene foto.
+
+Antes de estas fotos, el catálogo usaba ilustraciones SVG creadas para el proyecto. Se reemplazaron por fotos y se quitaron del repositorio; siguen en el historial de git.
 
 ## Fotos de las páginas
 
@@ -42,31 +44,7 @@ Las fotos de la página de inicio, del login, del dashboard y del catálogo est�
 | img/fotos/categoria-limpieza.jpg | Categoría Limpieza | Burst | https://stocksnap.io/photo/simple-home-UQOXY4POK8 |
 | img/fotos/categoria-masculino.jpg | Categoría Cuidado masculino | Direct Media | https://stocksnap.io/photo/man-shaving-BFASQPNDEK |
 | img/fotos/vende-con-nosotros.jpg | Sección "Vende con nosotros" del inicio | Bruce Mars | https://stocksnap.io/photo/woman-mobile-Q93BUD2Z3Z |
+| img/fotos/inicio-para-el.jpg | Seccion Tambien para el del inicio | Matt Moloney | https://stocksnap.io/photo/smiling-man-3LMPSCJQGQ |
+| img/fotos/dashboard-para-el.jpg | Banner Linea masculina del dashboard | Jonas Svidras | https://stocksnap.io/photo/beautiful-fashion-LXBEITMWN1 |
 
 Los testimonios de la página de inicio son ficticios, igual que los productos y los precios. Usan iniciales en lugar de fotos de personas, y el pie de página lo aclara.
-
-## Cómo cambiar las ilustraciones de los productos por fotos
-
-1. Buscar las fotos en un banco con licencia libre: Unsplash (unsplash.com/license) o Pexels (pexels.com/license). Las dos permiten usarlas gratis sin pedir permiso. No usar fotos de marcas reales ni de tiendas en línea.
-2. Recortarlas en proporción 5:4 (por ejemplo 500 x 400 píxeles) y guardarlas en `img/productos/` como `.jpg` con el SKU como nombre: `0001.jpg`, `0002.jpg`, etc.
-3. En `js/catalogo.js`, cambiar la constante `FORMATO_IMAGEN` de `'.svg'` a `'.jpg'`. Si falta alguna foto, el catálogo muestra `sin-imagen.svg` en su lugar.
-4. Llenar esta tabla con el autor y el enlace de cada foto:
-
-| SKU | Autor | Enlace a la foto | Licencia |
-|---|---|---|---|
-| 0001 | | | |
-| 0002 | | | |
-| 0003 | | | |
-| 0004 | | | |
-| 0005 | | | |
-| 0006 | | | |
-| 0007 | | | |
-| 0008 | | | |
-| 0009 | | | |
-| 0010 | | | |
-| 0011 | | | |
-| 0012 | | | |
-| 0013 | | | |
-| 0014 | | | |
-| 0015 | | | |
-| 0016 | | | |
