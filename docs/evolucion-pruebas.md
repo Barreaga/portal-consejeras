@@ -12,6 +12,7 @@ Este registro muestra cómo fue creciendo la suite de pruebas del Portal de Cons
 | Filtro del catálogo (HU-09) | 4 sep 2026, d1ed46a (mismo commit) | tests/filtros.test.js con 11 pruebas unitarias (CP-20 a CP-30) | 28 | Igual que antes |
 | Conexión a Supabase | 12 oct 2026, 2818ea8 (PR #28) | No se agregaron pruebas. Las 28 siguieron pasando | 28 | Igual que antes |
 | Esta rama (feature/hito2-fase2-pruebas) | 12 oct 2026, a8ca083 y d884726 | 9 pruebas de seguridad RLS (SEG-01 a SEG-09) y 8 pruebas de extremo a extremo con Playwright para CP-02, CP-03, CP-04, CP-07 y CP-08 | 45 (28 en npm test, 9 de seguridad y 8 e2e) | 5 escenarios BDD y los casos de la RTM sin prueba de interfaz |
+| Pedidos en Supabase (feature/hito2-fase3-pedidos-bd) | 12 oct 2026, 5dc2eda y 3d6e5fa | Se adaptaron INT-01, INT-03 e INT-05 a la base de datos con un cliente falso. Se agregaron INT-06 a INT-09 y 4 pruebas e2e del envío (CP-17, CP-18, falla de red y XSS en el historial) | 53 (32 en npm test, 9 de seguridad y 12 e2e) | Igual que antes |
 
 Las pruebas de integración y las 11 del filtro entraron en el mismo commit (d1ed46a), junto con la corrección del defecto de pedidos. En el documento del Hito de Integración aparecen como dos partes distintas, pero en git llegaron juntas.
 
@@ -21,9 +22,9 @@ Las pruebas de integración y las 11 del filtro entraron en el mismo commit (d1e
 |---|---|---|---|---|
 | Unitarias de pedido | tests/pedido.test.js | 12 | npm test | Sí |
 | Unitarias del filtro | tests/filtros.test.js | 11 | npm test | Sí |
-| Integración | tests/integracion/flujo-pedido.test.js | 5 | npm test | Sí |
+| Integración | tests/integracion/flujo-pedido.test.js | 9 | npm test | Sí |
 | Seguridad RLS | tests/seguridad/rls.test.js | 9 | npm run test:seguridad | No |
-| Extremo a extremo | tests/e2e/login.spec.js y tests/e2e/busqueda-sku.spec.js | 8 | npm run test:e2e | No |
+| Extremo a extremo | tests/e2e/login.spec.js, busqueda-sku.spec.js y envio-pedido.spec.js | 12 | npm run test:e2e | No |
 | Criterios BDD | tests/aceptacion/pedido.feature | 5 | Manual | No |
 
 Las pruebas de seguridad y las e2e no están en el QA Gate a propósito. Necesitan internet (Supabase y el CDN de supabase-js) y, en el caso de las e2e, un navegador. Si estuvieran en el QA Gate, una caída de la red bloquearía la integración aunque el código estuviera bien. La prueba de seguridad además deja un pedido de prueba en la base cada vez que se corre.
@@ -36,6 +37,17 @@ Todas se corrieron el 12 de octubre de 2026 en la computadora de Brandon Arreaga
 - npm run test:seguridad: 9 pruebas, 9 aprobadas, 0 fallidas. Se creó el pedido de prueba PRUEBA-RLS-1791860157752. El detalle está en docs/prueba-seguridad-rls.md.
 - npm run test:e2e: 8 pruebas, 7 aprobadas, 0 fallidas y 1 omitida. La omitida es la variante de CP-02 contra la base real, que solo corre si se le dan un código y una contraseña reales con las variables E2E_CODIGO y E2E_CLAVE. La otra variante de CP-02 sí corrió, pero con la respuesta de Supabase simulada por una consejera ficticia.
 - Las primeras 28 pruebas también corren en el QA Gate de GitHub. El primer commit (163ed49) tuvo el QA Gate en rojo y se corrigió con a7bc0ab, que cambió la versión de Node. Desde ahí, los commits de main que revisamos (a7bc0ab, 51cfe54, d1ed46a y 2818ea8) tienen el QA Gate en verde.
+
+## Cambios al pasar los pedidos a Supabase
+
+Cuando el pedido enviado y el historial se pasaron de localStorage a Supabase, tres pruebas de integración dejaron de servir tal como estaban, porque esperaban que el registro fuera inmediato y en localStorage. Se adaptaron así:
+
+- INT-01, INT-03 e INT-05 ahora son asíncronas y usan un cliente falso en memoria que se comporta como la función registrar_pedido. Así npm test y el QA Gate siguen sin depender de internet. Lo que prueban no cambió.
+- A INT-05 se le cambiaron los datos: antes sumaba Q356.16 y ahora suma Q489.49, porque la base de datos también revisa RN-01 y rechaza pedidos de menos de Q400.
+- Las pruebas ya no usan eval para cargar sesion.js, sino require.
+- Pruebas nuevas: INT-06 (falla de red sin perder el carrito), INT-07 (un reintento no duplica el pedido), INT-08 (el historial solo trae los pedidos de la consejera) e INT-09 (si la base rechaza por RN-01, se explica el motivo).
+
+Resultado el 12 de octubre de 2026: npm test 32 de 32 y npm run test:e2e 11 aprobadas y 1 omitida (la de CP-02 con la base real). Las e2e del envío simulan la respuesta de Supabase con page.route, así que no escriben en la base real.
 
 ## Casos que pasaron de manuales a automatizados
 

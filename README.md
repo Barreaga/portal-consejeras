@@ -92,14 +92,9 @@ Así se puede ir de la matriz al código y del código a la matriz.
 
 ## Dónde quedan registrados los pedidos
 
-Al enviar un pedido queda guardado en el navegador, en `localStorage`, bajo la clave `pedidos-enviados`.
+Al enviar un pedido se guarda en Supabase, en las tablas `pedidos` y `lineas_pedido`, con la función `registrar_pedido` (ver `sql/registrar-pedido.sql`). Se puede ver en el dashboard, en la sección "Mis pedidos enviados".
 
-Se puede ver de dos formas:
-
-1. **En el dashboard**, en la sección "Mis pedidos enviados".
-2. **En el navegador:** F12 → pestaña *Application* → *Local Storage* → el sitio → clave `pedidos-enviados`.
-
-Cada registro guarda el número de pedido, la consejera, la fecha, los productos y el total.
+El pedido que se está armando (el carrito) sigue en el navegador, en `localStorage`, bajo la clave `pedido`.
 
 ## Limitación conocida
 

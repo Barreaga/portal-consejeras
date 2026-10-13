@@ -6,9 +6,9 @@ Este texto se agrega a la Parte 1 del Documento de Arquitectura SQA (archivo Hit
 
 | Tecnología | Para qué |
 |---|---|
-| Supabase (PostgreSQL) | Base de datos real. Guarda las consejeras y el catálogo de productos |
-| supabase-js versión 2 | Librería que usa el navegador para consultar la base de datos. Se carga desde cdn.jsdelivr.net en login.html y catalogo.html |
-| localStorage | Sigue guardando la sesión, el pedido en curso y el historial de pedidos enviados |
+| Supabase (PostgreSQL) | Base de datos real. Guarda las consejeras, el catálogo de productos y los pedidos enviados con sus líneas |
+| supabase-js versión 2 | Librería que usa el navegador para consultar la base de datos. Se carga desde cdn.jsdelivr.net en login.html, catalogo.html y dashboard.html |
+| localStorage | Sigue guardando la sesión y el pedido en curso (el carrito) |
 
 ## 1.5 Cómo está organizado
 
@@ -21,7 +21,8 @@ La segunda capa es la lógica en JavaScript. Las reglas RN-01, RN-02 y RN-03 sig
 La tercera capa son los datos, y ahora tiene dos partes:
 
 - Supabase. La conexión se configura una sola vez en js/supabaseClient.js y todos los demás archivos usan ese mismo cliente. login.js busca a la consejera en la tabla consejeras (columnas codigo, clave, nombre y estado) y productos.js trae el catálogo de la tabla productos (columnas sku, nombre, precio, categoria y agotado), ordenado por SKU. Las dos consultas son asíncronas, por eso las funciones buscarConsejera() y obtenerProductos() usan async y await. Si la consulta falla, el login muestra el mismo mensaje de credenciales incorrectas y el catálogo queda vacío.
-- localStorage. sesion.js guarda la sesión, el pedido que se está armando y el historial de pedidos enviados. Esta parte todavía no se migró. En la base de datos ya existen las tablas pedidos y lineas_pedido, pero el código del sitio aún no las usa.
+- Pedidos enviados. Al enviar, catalogo.js llama a registrarPedidoEnviado() de sesion.js, que usa la función registrar_pedido de Supabase (sql/registrar-pedido.sql). Esa función guarda el pedido en la tabla pedidos y sus líneas en lineas_pedido en una sola transacción, vuelve a revisar RN-01, RN-02 y RN-03 y calcula el total con los precios de la tabla productos. El dashboard lee "Mis pedidos enviados" de la tabla pedidos, solo los de la consejera que inició sesión.
+- localStorage. sesion.js guarda la sesión y el pedido que se está armando. El carrito solo se vacía cuando Supabase confirma el envío. Si la red falla, el pedido se queda en el navegador y la consejera puede reintentar con el mismo número de pedido, así no se duplica.
 
 El filtro de categorías del catálogo ahora se arma con las categorías que vienen de la base de datos, en vez de estar escritas a mano en el HTML.
 

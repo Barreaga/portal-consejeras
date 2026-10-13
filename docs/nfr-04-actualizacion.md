@@ -31,7 +31,7 @@ Característica ISO/IEC 25010: Seguridad. Subcaracterísticas: integridad (NFR-0
 - No cubre autenticación real. El login sigue siendo simulado y no usa Supabase Auth (ver Documento de Arquitectura SQA, sección 1.8). La sesión se guarda en localStorage y se puede modificar desde el navegador.
 - Como la base de datos no sabe qué consejera está conectada, RLS no puede limitar los datos por consejera. Las políticas de lectura usan using (true), así que cualquiera con la llave publishable puede leer todos los pedidos. La política de INSERT en pedidos usa with check (true), así que se podría registrar un pedido a nombre de otra consejera.
 - La política de lectura de consejeras deja leer todas las columnas, incluida clave, que está en texto plano. NFR-04b protege la integridad de los datos, no la confidencialidad de las contraseñas.
-- El pedido y el historial de pedidos todavía se guardan en localStorage. La parte de pedidos y lineas_pedido de NFR-04b solo se podrá comprobar desde el sitio cuando pedido.js y sesion.js se migren a la base de datos. Mientras tanto se comprueba directo desde la consola.
+- Desde el Hito 2 (fase 3) los pedidos enviados se guardan en Supabase con la función registrar_pedido. La función corre con los permisos de quien la llama (security invoker), así que solo puede hacer los INSERT que permiten las políticas; no cambia ninguna política. El historial se filtra por consejera en la consulta, pero eso no es un control de seguridad: con la llave publishable se pueden leer los pedidos de todas.
 
 ### Fila para la tabla 2.3 (Resumen de trazabilidad)
 

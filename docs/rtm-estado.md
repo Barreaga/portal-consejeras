@@ -34,6 +34,10 @@ Las pruebas unitarias (CP-09 a CP-17) revisan la regla de negocio en el código,
 
 Las 11 pruebas unitarias de tests/filtros.test.js pasaron con npm test: 11 de 11 aprobadas. No se agregaron como filas en la tabla del Word porque la RTM no tiene definida su prioridad ni su riesgo, y no queríamos inventarlos. Su estado se anotó en el párrafo debajo de la tabla.
 
+## Nota sobre CP-17 y CP-18 (Hito 2, fase 3)
+
+Después de pasar los pedidos a Supabase se agregaron pruebas e2e para CP-17 (enviar con Q400.00 y recibir el número) y CP-18 (doble clic registra un solo pedido), en tests/e2e/envio-pedido.spec.js. Las dos pasaron, pero con la respuesta de Supabase simulada. Por eso CP-18 sigue como No ejecutado en la RTM, igual que CP-02. Se puede cambiar a Aprobado cuando se pruebe una vez con la base real, después de ejecutar sql/registrar-pedido.sql en Supabase.
+
 ## Resumen
 
 De los 19 casos de la RTM: 12 aprobados, 0 fallidos, 0 bloqueados y 7 no ejecutados. Con CP-20 a CP-30 son 23 aprobados de 30.
