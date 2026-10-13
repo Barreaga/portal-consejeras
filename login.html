@@ -23,12 +23,20 @@
 
       <div class="mb-3">
         <label for="codigo" class="form-label">Codigo de consejera</label>
-        <input type="text" class="form-control" id="codigo" placeholder="Ejemplo: 3311">
+        <input type="text" class="form-control" id="codigo" placeholder="Ejemplo: 3311"
+               inputmode="numeric" autocomplete="username" aria-describedby="ayuda-codigo">
+        <div id="ayuda-codigo" class="form-text">Es el codigo de 4 numeros que le dio el programa.</div>
       </div>
 
       <div class="mb-3">
         <label for="clave" class="form-label">Contrasena</label>
-        <input type="password" class="form-control" id="clave">
+        <div class="input-group">
+          <input type="password" class="form-control" id="clave"
+                 autocomplete="current-password" aria-describedby="ayuda-clave">
+          <button id="btn-ver-clave" class="btn btn-outline-secondary" type="button"
+                  aria-controls="clave" aria-pressed="false">Mostrar</button>
+        </div>
+        <div id="ayuda-clave" class="form-text">Distingue entre mayusculas y minusculas.</div>
       </div>
 
       <div id="mensaje" class="alert alert-danger d-none" role="alert"></div>
@@ -38,7 +46,7 @@
       </button>
 
       <p class="text-muted small mt-3 mb-0 text-center">
-        <a href="recuperar.html" class="text-decoration-none">Olvide mi contrasena</a>
+        Si olvido su contrasena, comuniquese con el equipo del programa.
       </p>
     </div>
   </div>
@@ -46,5 +54,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabaseClient.js"></script>
   <script src="js/login.js"></script>
+  <script src="js/ver-clave.js"></script>
 </body>
 </html>
