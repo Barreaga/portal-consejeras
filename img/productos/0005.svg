@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Shampoo Reparador">
+  <title>Shampoo Reparador</title>
+  <rect width="200" height="160" fill="#e1f1ec"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="80" y="30" width="40" height="16" rx="4" fill="#2e8b6f"/>
+  <path d="M74 50 Q74 46 80 46 L120 46 Q126 46 126 50 L130 130 Q130 136 124 136 L76 136 Q70 136 70 130 Z" fill="#bfe5d8" stroke="#2e8b6f" stroke-width="2"/>
+  <rect x="82" y="80" width="36" height="34" rx="4" fill="#ffffff"/>
+  <path d="M92 104 Q100 86 108 104" fill="none" stroke="#2e8b6f" stroke-width="3"/>
+</svg>

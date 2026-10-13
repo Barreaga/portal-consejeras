@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Locion Corporal">
+  <title>Locion Corporal</title>
+  <rect width="200" height="160" fill="#f6e3ec"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="94" y="22" width="12" height="14" fill="#8a5a78"/>
+  <rect x="98" y="16" width="26" height="6" rx="2" fill="#8a5a78"/>
+  <rect x="86" y="34" width="28" height="12" rx="3" fill="#8a5a78"/>
+  <rect x="76" y="46" width="48" height="90" rx="12" fill="#fbeff5" stroke="#c9a3b8" stroke-width="2"/>
+  <rect x="84" y="78" width="32" height="30" rx="3" fill="#e7b9cf"/>
+</svg>

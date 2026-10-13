@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Desodorante en Barra">
+  <title>Desodorante en Barra</title>
+  <rect width="200" height="160" fill="#e6e9ec"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="80" y="30" width="40" height="22" rx="8" fill="#2f3b45"/>
+  <rect x="78" y="50" width="44" height="86" rx="10" fill="#e1e6ea" stroke="#2f3b45" stroke-width="2"/>
+  <rect x="86" y="74" width="28" height="36" rx="3" fill="#4d7ea8"/>
+  <rect x="94" y="126" width="12" height="6" rx="2" fill="#2f3b45"/>
+</svg>

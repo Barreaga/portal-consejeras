@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Desinfectante Multiusos">
+  <title>Desinfectante Multiusos</title>
+  <rect width="200" height="160" fill="#e2eef8"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <path d="M86 30 L118 30 L124 40 L104 40 L104 50 L90 50 Z" fill="#1f6fb2"/>
+  <rect x="106" y="34" width="22" height="4" fill="#1f6fb2"/>
+  <rect x="88" y="50" width="20" height="10" fill="#1f6fb2"/>
+  <path d="M80 60 L116 60 L124 132 Q124 136 120 136 L76 136 Q72 136 72 132 Z" fill="#cfe3f5" stroke="#1f6fb2" stroke-width="2"/>
+  <rect x="82" y="86" width="32" height="26" rx="3" fill="#ffffff"/>
+  <path d="M98 92 L98 106 M91 99 L105 99" stroke="#1f6fb2" stroke-width="3"/>
+</svg>

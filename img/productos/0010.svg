@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Cloro Concentrado">
+  <title>Cloro Concentrado</title>
+  <rect width="200" height="160" fill="#e2eef8"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="110" y="36" width="16" height="12" rx="2" fill="#f2b632"/>
+  <path d="M66 60 Q66 48 78 48 L124 48 Q136 48 136 60 L136 132 Q136 136 132 136 L70 136 Q66 136 66 132 Z" fill="#ffffff" stroke="#9fb7cc" stroke-width="2"/>
+  <path d="M74 60 L74 82 Q74 88 80 88 L94 88 Q100 88 100 82 L100 60" fill="none" stroke="#9fb7cc" stroke-width="6"/>
+  <rect x="80" y="100" width="44" height="22" rx="3" fill="#f2b632"/>
+</svg>

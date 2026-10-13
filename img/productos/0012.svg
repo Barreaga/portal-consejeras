@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Aromatizante de Ambiente">
+  <title>Aromatizante de Ambiente</title>
+  <rect width="200" height="160" fill="#e2eef8"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="90" y="28" width="20" height="12" rx="3" fill="#7a5fb0"/>
+  <path d="M80 48 Q80 40 90 40 L110 40 Q120 40 120 48 Z" fill="#b8a6d9"/>
+  <rect x="80" y="48" width="40" height="88" rx="4" fill="#d9cdf1" stroke="#7a5fb0" stroke-width="2"/>
+  <circle cx="100" cy="88" r="12" fill="#f5e6a8"/>
+  <circle cx="100" cy="88" r="4" fill="#e3b93c"/>
+</svg>

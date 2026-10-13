@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160" role="img" aria-label="Perfume Floral">
+  <title>Perfume Floral</title>
+  <rect width="200" height="160" fill="#ebe5f5"/>
+  <ellipse cx="100" cy="138" rx="58" ry="7" fill="#000" opacity="0.08"/>
+  <rect x="92" y="40" width="16" height="14" fill="#c9b8e6"/>
+  <circle cx="100" cy="34" r="10" fill="#8f79bf"/>
+  <rect x="68" y="54" width="64" height="82" rx="20" fill="#d9cdf1" stroke="#8f79bf" stroke-width="2"/>
+  <circle cx="100" cy="96" r="14" fill="#f2c6dc"/>
+  <circle cx="100" cy="96" r="5" fill="#e48fb6"/>
+</svg>
