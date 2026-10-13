@@ -13,6 +13,7 @@ Este registro muestra cómo fue creciendo la suite de pruebas del Portal de Cons
 | Conexión a Supabase | 12 oct 2026, 2818ea8 (PR #28) | No se agregaron pruebas. Las 28 siguieron pasando | 28 | Igual que antes |
 | Esta rama (feature/hito2-fase2-pruebas) | 12 oct 2026, a8ca083 y d884726 | 9 pruebas de seguridad RLS (SEG-01 a SEG-09) y 8 pruebas de extremo a extremo con Playwright para CP-02, CP-03, CP-04, CP-07 y CP-08 | 45 (28 en npm test, 9 de seguridad y 8 e2e) | 5 escenarios BDD y los casos de la RTM sin prueba de interfaz |
 | Pedidos en Supabase (feature/hito2-fase3-pedidos-bd) | 12 oct 2026, 5dc2eda y 3d6e5fa | Se adaptaron INT-01, INT-03 e INT-05 a la base de datos con un cliente falso. Se agregaron INT-06 a INT-09 y 4 pruebas e2e del envío (CP-17, CP-18, falla de red y XSS en el historial) | 53 (32 en npm test, 9 de seguridad y 12 e2e) | Igual que antes |
+| Casos manuales y compatibilidad (misma rama) | 12 oct 2026, 4dd907c y 34cbbd9 | 7 pruebas e2e de CP-01, CP-05, CP-06, CP-15, CP-16 y CP-19, y la matriz de compatibilidad del NFR-06 (4 pruebas en 6 combinaciones) | 84 (32 en npm test, 9 de seguridad, 19 e2e y 24 de compatibilidad) | 5 escenarios BDD y la revisión visual del diseño |
 
 Las pruebas de integración y las 11 del filtro entraron en el mismo commit (d1ed46a), junto con la corrección del defecto de pedidos. En el documento del Hito de Integración aparecen como dos partes distintas, pero en git llegaron juntas.
 
@@ -24,7 +25,8 @@ Las pruebas de integración y las 11 del filtro entraron en el mismo commit (d1e
 | Unitarias del filtro | tests/filtros.test.js | 11 | npm test | Sí |
 | Integración | tests/integracion/flujo-pedido.test.js | 9 | npm test | Sí |
 | Seguridad RLS | tests/seguridad/rls.test.js | 9 | npm run test:seguridad | No |
-| Extremo a extremo | tests/e2e/login.spec.js, busqueda-sku.spec.js y envio-pedido.spec.js | 12 | npm run test:e2e | No |
+| Extremo a extremo | tests/e2e/login.spec.js, busqueda-sku.spec.js, envio-pedido.spec.js y casos-rtm.spec.js | 19 | npm run test:e2e | No |
+| Compatibilidad (NFR-06) | tests/compat/compatibilidad.spec.js | 4 pruebas en 6 combinaciones (24) | npm run test:compat | No |
 | Criterios BDD | tests/aceptacion/pedido.feature | 5 | Manual | No |
 
 Las pruebas de seguridad y las e2e no están en el QA Gate a propósito. Necesitan internet (Supabase y el CDN de supabase-js) y, en el caso de las e2e, un navegador. Si estuvieran en el QA Gate, una caída de la red bloquearía la integración aunque el código estuviera bien. La prueba de seguridad además deja un pedido de prueba en la base cada vez que se corre.
@@ -64,6 +66,12 @@ Antes de esta rama, estos casos de la RTM solo se podían probar a mano en el na
 También pasó de manual a automatizado el NFR-04b. En docs/nfr-04-actualizacion.md decía "manual, pendiente de ejecutar" y ahora se comprueba con tests/seguridad/rls.test.js.
 
 Los casos CP-05, CP-06 y CP-09 a CP-17 tienen una prueba unitaria con su número desde el primer commit. Esas pruebas revisan las funciones de las reglas de negocio, no la pantalla. En dos casos la prueba no revisa lo mismo que dice la RTM. La prueba CP-06 revisa que un producto disponible se pueda agregar, pero la RTM dice que se vean 8 productos con 2 agotados marcados. La prueba CP-15 revisa el total con decimales, pero la RTM dice eliminar una línea y recalcular. Los casos CP-01, CP-18 y CP-19, la parte de pantalla de CP-06 y CP-15, y los 5 criterios BDD siguen siendo manuales.
+
+## Segunda ronda de casos manuales automatizados
+
+En la misma rama se automatizaron los casos de la RTM que quedaban como manuales y que no necesitan escribir en la base real: CP-01, CP-05, CP-06, CP-15, CP-16 (el mensaje en pantalla) y CP-19, en tests/e2e/casos-rtm.spec.js. Las 7 pruebas pasaron. Con esto, npm run test:e2e quedó en 18 aprobadas y 1 omitida (CP-02 con la base real).
+
+También se automatizó la matriz de compatibilidad del NFR-06 (Chrome, Firefox y Edge, en escritorio y celular): 24 de 24 aprobadas. El Firefox que descarga Playwright no se pudo abrir en la computadora porque Windows bloquea el ejecutable, así que se usó el Firefox instalado (canal moz-firefox). Al principio fallaron 4 pruebas en Firefox con el error "The operation is insecure.". La causa estaba en la prueba, no en el sitio: el script que pone la sesión también corría en la página en blanco inicial, donde Firefox no deja usar sessionStorage. Se corrigió en la prueba.
 
 ## El defecto real y su resolución
 
