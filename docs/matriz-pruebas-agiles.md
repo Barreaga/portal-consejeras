@@ -22,7 +22,7 @@ En este hito trabajamos **Q1 y Q2**.
 
 ## Cuadrante Q1 — Pruebas unitarias
 
-Están en `tests/pedido.test.js` y se ejecutan automáticamente en el QA Gate con `npm test`.
+Están en `tests/pedido.test.js` y `tests/filtros.test.js`, y se ejecutan automáticamente en el QA Gate con `npm test`.
 
 Cada prueba lleva en su nombre el identificador del caso de la matriz de trazabilidad (RTM), para poder rastrearla.
 
@@ -41,7 +41,25 @@ Cada prueba lleva en su nombre el identificador del caso de la matriz de trazabi
 | 11 | `sin sesión no deja enviar` | Sin sesión activa | — | CP-05 |
 | 12 | `con el pedido vacío no deja enviar` | Pedido sin productos | — | — |
 
-**Total: 12 pruebas.** El hito pide mínimo 3.
+### Pruebas del filtro del catálogo (HU-09)
+
+Se agregaron con el filtro del catálogo. Están en `tests/filtros.test.js` y prueban la función `filtrarProductos()` de `js/filtros.js`. El filtro no corresponde a ninguna de las tres reglas de negocio, por eso en la columna Regla aparece la historia HU-09.
+
+| # | Prueba | Qué verifica | Regla | Caso RTM |
+|---|---|---|---|---|
+| 13 | `filtrar por categoria devuelve solo esa categoria` | Filtro por una categoría | HU-09 | CP-20 |
+| 14 | `categoria vacia no filtra nada` | Sin categoría elegida se muestran todos | HU-09 | CP-21 |
+| 15 | `precio minimo excluye productos mas baratos` | Límite inferior del rango de precio | HU-09 | CP-22 |
+| 16 | `precio maximo excluye productos mas caros` | Límite superior del rango de precio | HU-09 | CP-23 |
+| 17 | `rango de precio combinado (min y max)` | Mínimo y máximo al mismo tiempo | HU-09 | CP-24 |
+| 18 | `orden por precio de menor a mayor` | Orden ascendente por precio | HU-09 | CP-25 |
+| 19 | `orden por precio de mayor a menor` | Orden descendente por precio | HU-09 | CP-26 |
+| 20 | `orden alfabetico por nombre` | Orden por nombre | HU-09 | CP-27 |
+| 21 | `categoria y orden juntos` | Filtro y orden combinados | HU-09 | CP-28 |
+| 22 | `lista vacia no truena` | Catálogo vacío | HU-09 | CP-29 |
+| 23 | `sin productos (null) devuelve lista vacia` | Lista de productos nula | HU-09 | CP-30 |
+
+**Total: 23 pruebas unitarias** (12 de pedido y 11 del filtro). El hito pide mínimo 3.
 
 Todas corren en el pipeline. Si alguna falla, el código no se puede integrar.
 

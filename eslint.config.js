@@ -37,7 +37,9 @@ module.exports = [
         guardarPedido: 'readonly',
         filtrarProductos: 'readonly',
         registrarPedidoEnviado: 'readonly',
-        obtenerPedidosEnviados: 'readonly'
+        obtenerPedidosEnviados: 'readonly',
+        numeroParaEnviar: 'readonly',
+        limpiarPedidoPendiente: 'readonly'
       }
     },
     rules: {
