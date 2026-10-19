@@ -8,11 +8,11 @@ Proyecto académico del curso de calidad de software.
 
 Un sitio web donde una consejera inicia sesión, revisa el catálogo y arma su pedido del mes.
 
-Está hecho solo con HTML, CSS y JavaScript. No tiene servidor ni base de datos: los productos están en un archivo y la sesión se guarda en el navegador.
+Está hecho con HTML, CSS, JavaScript y Bootstrap. No tiene servidor propio: se conecta directo a una base de datos en Supabase, que guarda las consejeras, los productos y los pedidos enviados. La sesión y el pedido que se está armando se guardan en el navegador.
 
 ## Cómo verlo
 
-Abrir el archivo `index.html` con doble clic. No hay que instalar nada.
+Abrir el archivo `index.html` con doble clic. No hay que instalar nada, pero hace falta internet porque el catálogo y el inicio de sesión se leen de Supabase.
 
 ## Cómo correr las pruebas
 
@@ -23,7 +23,7 @@ npm install
 npm test
 ```
 
-Si todo está bien, aparece que las 12 pruebas pasaron.
+Si todo está bien, aparece que las 32 pruebas pasaron (unitarias y de integración).
 
 Para revisar el código con el linter:
 
@@ -39,6 +39,14 @@ npm run qa
 
 **Antes de subir cambios a GitHub, correr `npm run qa`.** Si falla aquí, también va a fallar allá.
 
+Hay más pruebas que no están en el QA Gate porque necesitan internet y un navegador:
+
+```
+npm run test:seguridad   Prueba de RLS contra Supabase (deja un pedido de prueba en la base)
+npm run test:e2e         Pruebas de pantalla con Playwright
+npm run test:compat      Compatibilidad en Chrome, Firefox y Edge
+```
+
 ## Reglas de negocio
 
 | ID | Regla | Dónde está |
@@ -51,7 +59,7 @@ npm run qa
 
 Las pruebas están clasificadas por cuadrantes ágiles en `docs/matriz-pruebas-agiles.md`:
 
-- **Q1** — 12 pruebas unitarias automatizadas en `tests/pedido.test.js`
+- **Q1** — 12 pruebas unitarias de pedido en `tests/pedido.test.js` y 11 del filtro en `tests/filtros.test.js`
 - **Q2** — 5 criterios de aceptación en BDD en `tests/aceptacion/pedido.feature`
 
 Los defectos se registran en el tablero Kanban del repositorio (pestaña Proyectos).
@@ -76,16 +84,23 @@ Así se puede ir de la matriz al código y del código a la matriz.
 ├── css/estilo.css      Estilos
 ├── js/
 │   ├── pedido.js       Las tres reglas de negocio
-│   ├── productos.js    Lista de productos de prueba
+│   ├── productos.js    Lectura del catálogo desde Supabase
+│   ├── supabaseClient.js  Conexión a Supabase
+│   ├── filtros.js      Filtro y orden del catálogo
 │   ├── login.js        Inicio de sesión
 │   ├── sesion.js       Sesión y registro de pedidos
 │   ├── dashboard.js    Resumen del pedido
 │   └── catalogo.js     Catálogo, pedido y envío
 ├── tests/
 │   ├── pedido.test.js  Pruebas unitarias (Q1)
+│   ├── filtros.test.js Pruebas unitarias del filtro
+│   ├── integracion/    Pruebas de integración del pedido
+│   ├── seguridad/      Prueba de RLS contra Supabase
+│   ├── e2e/            Pruebas con Playwright
+│   ├── compat/         Compatibilidad en Chrome, Firefox y Edge
 │   └── aceptacion/     Criterios BDD (Q2)
-├── docs/
-│   └── matriz-pruebas-agiles.md
+├── docs/               Matriz de pruebas, RTM, arquitectura y guías
+├── sql/                Políticas RLS y función registrar_pedido
 ├── eslint.config.js    Configuración del linter
 └── .github/workflows/  El QA Gate
 ```

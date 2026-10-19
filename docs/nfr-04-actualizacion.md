@@ -24,7 +24,7 @@ Característica ISO/IEC 25010: Seguridad. Subcaracterísticas: integridad (NFR-0
 | Dónde está el control | sql/politicas-rls.sql. Activa RLS en consejeras, productos, pedidos y lineas_pedido. Tiene políticas de SELECT en las cuatro tablas y de INSERT solo en pedidos y lineas_pedido. No hay políticas de UPDATE ni de DELETE. |
 | Cómo se mide | Desde la consola del navegador, usando el mismo cliente de js/supabaseClient.js, intentar un INSERT en consejeras y productos, y un UPDATE y un DELETE en cada una de las cuatro tablas. Después volver a consultar las tablas para confirmar que los datos no cambiaron. También se puede revisar en el panel de Supabase (Authentication, Policies) que RLS aparezca activado en las cuatro tablas. |
 | Umbral de aceptación | 100% de los intentos de escritura no permitidos son bloqueados. Los INSERT deben devolver error de permisos. Los UPDATE y DELETE deben afectar 0 filas (con RLS, Supabase no siempre devuelve error en estos casos, por eso se confirma volviendo a consultar). La lectura del catálogo y el login deben seguir funcionando. |
-| Método de verificación | Manual, desde la consola del navegador y el panel de Supabase. Pendiente de ejecutar. |
+| Método de verificación | Automatizado con tests/seguridad/rls.test.js (npm run test:seguridad): 9 de 9 casos aprobados el 12 de octubre de 2026. El detalle está en docs/prueba-seguridad-rls.md. La prueba manual desde la consola (docs/guia-pruebas-manuales.md, MAN-03) sirve para mostrarlo en vivo. |
 
 ### Limitaciones declaradas
 
@@ -38,4 +38,4 @@ Característica ISO/IEC 25010: Seguridad. Subcaracterísticas: integridad (NFR-0
 | NFR | Característica ISO 25010 | Verificado por |
 |---|---|---|
 | NFR-04a | Seguridad (integridad) | Prueba manual con entradas maliciosas (pendiente de ejecutar) |
-| NFR-04b | Seguridad (integridad) | Prueba manual de escritura con la llave publishable y revisión de políticas en Supabase (pendiente de ejecutar) |
+| NFR-04b | Seguridad (integridad) | tests/seguridad/rls.test.js, 9 de 9 aprobadas (docs/prueba-seguridad-rls.md) |
