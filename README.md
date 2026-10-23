@@ -39,6 +39,23 @@ npm run qa
 
 **Antes de subir cambios a GitHub, correr `npm run qa`.** Si falla aquí, también va a fallar allá.
 
+## Pruebas con Robot Framework
+
+Los casos CP-03 y CP-04 del login (antes manuales) también están en Robot Framework, en `tests/robot/`. Hace falta Python.
+
+```
+pip install robotframework robotframework-seleniumlibrary
+python -m http.server 8000
+```
+
+Con el sitio levantado, en otra terminal:
+
+```
+robot --outputdir resultados tests/robot
+```
+
+El reporte queda en `resultados/report.html` y el detalle paso a paso en `resultados/log.html`.
+
 ## Reglas de negocio
 
 | ID | Regla | Dónde está |
