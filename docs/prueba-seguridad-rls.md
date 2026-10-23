@@ -51,17 +51,19 @@ Por eso la URL y la llave publishable están visibles a propósito en `js/supaba
 
 ## Ampliación: pruebas nuevas
 
-Se agregaron pruebas después de la ejecución del 12 de octubre de 2026. Las de RLS están escritas pero no se han ejecutado contra Supabase. Hay que correr `npm run test:seguridad` y anotar el resultado aquí antes de darlas por aprobadas.
+Se agregaron pruebas después de la ejecución del 12 de octubre de 2026. El 22 de octubre de 2026 se corrió `npm run test:seguridad` completo desde la computadora de Brandon Arreaga: 14 de 14 casos aprobados, 0 fallidos y 0 omitidos.
 
 | Caso | Qué prueba | Estado |
 |---|---|---|
-| SEG-10 | INSERT en productos se rechaza con el código 42501 y no queda ninguna fila | Escrito, no ejecutado |
-| SEG-11 | INSERT en consejeras se rechaza con el código 42501 y no queda ninguna fila | Escrito, no ejecutado |
-| SEG-12 | UPDATE en lineas_pedido no modifica nada (cubre el hueco que decía esta página) | Escrito, no ejecutado |
-| SEG-13 | DELETE en lineas_pedido no borra nada | Escrito, no ejecutado |
-| SEG-14 | Limitación conocida: la columna clave se puede leer con la llave publishable. La prueba no imprime la clave | Escrito, no ejecutado |
+| SEG-10 | INSERT en productos se rechaza con el código 42501 y no queda ninguna fila | Aprobado el 22 de octubre de 2026 |
+| SEG-11 | INSERT en consejeras se rechaza con el código 42501 y no queda ninguna fila | Aprobado el 22 de octubre de 2026 |
+| SEG-12 | UPDATE en lineas_pedido no modifica nada (cubre el hueco que decía esta página) | Aprobado el 22 de octubre de 2026 |
+| SEG-13 | DELETE en lineas_pedido no borra nada | Aprobado el 22 de octubre de 2026 |
+| SEG-14 | Limitación conocida: la columna clave se puede leer con la llave publishable. La prueba no imprime la clave | Aprobado el 22 de octubre de 2026 |
 
-SEG-12 y SEG-13 se omiten solos si la tabla lineas_pedido está vacía, porque en ese caso no demostrarían nada. SEG-10 y SEG-11 no deberían dejar datos en la base. Si RLS fallara, crearían una fila de prueba que empieza con PRUEBA-RLS- (productos) o PRUEBA- (consejeras), que habría que borrar a mano.
+SEG-12 y SEG-13 se omiten solos si la tabla lineas_pedido está vacía, porque en ese caso no demostrarían nada. En esta ejecución no se omitieron, así que la tabla tenía líneas y las pruebas sí comprobaron algo.
+
+Después de la ejecución se consultó la base en modo lectura. SEG-10 y SEG-11 no dejaron ningún producto ni consejera de prueba. La única fila que quedó es el pedido PRUEBA-RLS-1792730618049 (consejera 3311, total 0.00), creado por SEG-03, que hay que borrar a mano desde el panel de Supabase.
 
 SEG-14 pasa porque la limitación existe. Si algún día se usa Supabase Auth y la clave deja de ser legible, esa prueba va a fallar, y habrá que actualizar la documentación.
 
