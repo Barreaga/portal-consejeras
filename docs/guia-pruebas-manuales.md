@@ -46,7 +46,7 @@ Datos de entrada: `<script>alert(1)</script>` y `<img src=x onerror=alert(1)>`.
 | Filtro de precio Min y Max | Escribir el texto y presionar "Aplicar filtros" | El límite se ignora. No aparece ninguna alerta | ☐ Aprobado ☐ Fallido ☐ Bloqueado ☐ No ejecutado | |
 | Código y contraseña (login.html) | Escribir el texto en los dos campos y presionar "Entrar" | Mensaje "Codigo o contrasena incorrectos." sin ninguna alerta | ☐ Aprobado ☐ Fallido ☐ Bloqueado ☐ No ejecutado | |
 
-El historial de pedidos ya tiene una prueba automatizada contra XSS en tests/e2e/envio-pedido.spec.js, pero los campos de arriba no.
+Estos cuatro campos y el historial ya tienen pruebas automatizadas (tests/e2e/xss.spec.js, 8 de 8 aprobadas el 22 de octubre de 2026, y tests/e2e/envio-pedido.spec.js). Esta prueba manual sirve para mostrarlo en vivo y como segunda comprobación.
 
 ## MAN-03 · Seguridad RLS desde la consola (NFR-04b)
 
@@ -130,7 +130,7 @@ Estado: ☐ Aprobado ☐ Fallido ☐ Bloqueado ☐ No ejecutado
 
 ## Pruebas de la mejora visual (Fase 4)
 
-Estas pruebas solo aplican cuando la rama feature/hito2-fase4-visual esté fusionada en main. Esa rama agrega modo oscuro, una leyenda de ayuda y un botón para mostrar la contraseña en el login (js/tema.js y js/ver-clave.js), y tiene pruebas con Playwright en tests/e2e/tema.spec.js y login-ayuda.spec.js.
+Estas pruebas son de la rama feature/hito2-fase4-visual, que ya está fusionada en main. Esa rama agrega modo oscuro, una leyenda de ayuda y un botón para mostrar la contraseña en el login (js/tema.js y js/ver-clave.js), y tiene pruebas con Playwright en tests/e2e/tema.spec.js y login-ayuda.spec.js.
 
 | Prueba | Pasos | Resultado esperado | Estado |
 |---|---|---|---|

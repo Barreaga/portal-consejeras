@@ -24,7 +24,7 @@ Qué es la llave publishable: una llave pensada para estar en el navegador. Por 
 
 Qué dice sql/politicas-rls.sql: RLS activado en las cuatro tablas. Solo lectura en consejeras y productos. Lectura y creación en pedidos y lineas_pedido. Sin políticas de UPDATE ni DELETE, así que la base de datos los rechaza.
 
-Cómo se probó: tests/seguridad/rls.test.js, 9 pruebas (SEG-01 a SEG-09), con 9 de 9 aprobadas el 12 de octubre de 2026. Los UPDATE y DELETE responden 200 con lista vacía (0 filas) y la prueba vuelve a leer para confirmar que nada cambió. Se comprobó a mano que un INSERT en productos da el error 42501.
+Cómo se probó: tests/seguridad/rls.test.js, 14 pruebas (SEG-01 a SEG-14), con 14 de 14 aprobadas el 22 de octubre de 2026 (las 9 primeras ya habían pasado el 12 de octubre). Los UPDATE y DELETE responden 200 con lista vacía (0 filas) y la prueba vuelve a leer para confirmar que nada cambió. Se comprobó a mano que un INSERT en productos da el error 42501.
 
 Por qué no se oculta la URL: sin backend propio, todo dato que el navegador necesita para conectarse le llega al usuario. Esconder la URL solo daría falsa seguridad.
 
@@ -34,7 +34,7 @@ Limitaciones que hay que decir antes de que las pregunten:
 - La base de datos no sabe qué consejera está conectada, así que cualquiera con la llave puede leer los pedidos de todas y crear un pedido a nombre de otra.
 - La contraseña está en texto plano en la tabla consejeras y se puede leer con la llave publishable.
 
-Además, la validación de entradas contra XSS (NFR-04a): el historial de pedidos tiene una prueba e2e que muestra un texto con una etiqueta `<img onerror>` como texto. Las demás entradas (búsqueda, cantidad, filtros y login) no se han probado a mano. No verificado.
+Además, la validación de entradas contra XSS (NFR-04a): tests/e2e/xss.spec.js tiene 8 pruebas que escriben dos textos de ataque (una etiqueta `<img onerror>` y una etiqueta `<script>`) en la búsqueda por SKU, la cantidad, los filtros de precio y el login. Pasaron 8 de 8 el 22 de octubre de 2026 y se comprobó que el detector funciona inyectando el texto a propósito con innerHTML. Ningún archivo de js/ usa innerHTML. Además, el historial de pedidos tiene su propia prueba E2E. Falta la prueba manual de MAN-02 si el catedrático la pide en vivo.
 
 ## 3. Pruebas y su evolución
 
@@ -45,9 +45,10 @@ Tres niveles (pirámide de pruebas de Mike Cohn). Analogía de un carro: probar 
 | Unitarias de pedido | tests/pedido.test.js | 12 | Sí |
 | Unitarias del filtro (CP-20 a CP-30) | tests/filtros.test.js | 11 | Sí |
 | Integración | tests/integracion/flujo-pedido.test.js | 9 | Sí |
-| Seguridad RLS | tests/seguridad/rls.test.js | 9 | No |
-| E2E con Playwright | tests/e2e | 19 en main | No |
+| Seguridad RLS | tests/seguridad/rls.test.js | 14 | No |
+| E2E con Playwright | tests/e2e | 31 (19 de antes, 4 de la Fase 4 y 8 de XSS) | No |
 | Compatibilidad (NFR-06) | tests/compat | 4 pruebas en 6 combinaciones | No |
+| Robot Framework | tests/robot | 4 casos de login (CP-03 y CP-04) | No |
 
 Resultado de `npm test` en main: 32 pruebas, 32 aprobadas, 0 fallidas. ESLint: 0 errores y 3 avisos de variables sin usar (exigirSesion y cerrarSesion en js/sesion.js, y supabaseClient en js/supabaseClient.js), que son funciones o variables que usan los archivos HTML.
 
@@ -57,7 +58,7 @@ Valores límite y partición de equivalencia: las reglas con números se prueban
 
 Por qué las pruebas e2e, de seguridad y de compatibilidad no están en el QA Gate: necesitan internet y un navegador. Si estuvieran, una caída de la red bloquearía un PR aunque el código estuviera bien. Esta decisión está en docs/evolucion-pruebas.md.
 
-La evolución con números: 12 unitarias en el Hito 1, 17 al agregar las de integración, 28 con las del filtro, 32 en `npm test` al pasar los pedidos a Supabase, y 84 en total contando seguridad, E2E y compatibilidad (docs/evolucion-pruebas.md).
+La evolución con números: 12 unitarias en el Hito 1, 17 al agregar las de integración, 28 con las del filtro, 32 en `npm test` al pasar los pedidos a Supabase, y después las pruebas de seguridad (14), de pantalla (31), de compatibilidad (24 ejecuciones) y los 4 casos de Robot Framework. Contando todo menos Robot son 81 pruebas distintas y 101 ejecuciones (docs/evolucion-pruebas.md). Verificado el 24 de octubre de 2026: npm test 32 de 32 y E2E 30 aprobadas y 1 omitida. Los 4 casos de Robot Framework no los verifiqué: hay que correrlos antes de afirmar su resultado.
 
 Trazabilidad: la RTM (matriz de trazabilidad de requisitos) tiene 19 casos y el nombre de cada prueba lleva el ID del caso (por ejemplo "CP-17 | sí deja enviar con Q400.00 exactos"). Según docs/rtm-estado.md los 19 están aprobados, más los 11 del filtro. Se aplicó la regla de que un caso solo se marca como aprobado si una prueba lo ejecutó de verdad.
 
@@ -102,13 +103,13 @@ Hecho: los PRs se revisan y aprueban por otra persona (regla del README: nadie a
    No. Es simulado y está declarado como limitación. RLS impide que alguien modifique o borre datos, pero la contraseña está en texto plano y se puede leer con la llave publishable. Para cerrarlo se necesita Supabase Auth.
 
 3. ¿Qué pruebas automatizaron?
-   32 pruebas unitarias y de integración en `npm test` (corren en el QA Gate), 9 de seguridad RLS, 19 E2E con Playwright y 24 de compatibilidad (4 pruebas en 6 combinaciones). Las tres últimas corren con comandos aparte.
+   32 pruebas unitarias y de integración en `npm test` (corren en el QA Gate), 14 de seguridad RLS, 31 E2E con Playwright, 24 de compatibilidad y 4 casos de Robot Framework (4 pruebas en 6 combinaciones). Las tres últimas corren con comandos aparte.
 
 4. ¿Qué no probaron?
    Carga y volumen, por falta de infraestructura. Y lo que sigue sin ejecutarse: los 5 criterios BDD, la revisión visual, y los NFR-01, NFR-02 y NFR-03.
 
 5. ¿Si la llave está visible, no pueden borrarles los datos?
-   No con esa llave. Intentar borrar o modificar productos, consejeras o pedidos devuelve 0 filas afectadas, y se probó (9 de 9). Lo que sí puede hacer cualquiera con la llave es leer todo y crear pedidos falsos: es una limitación declarada.
+   No con esa llave. Intentar borrar o modificar productos, consejeras o pedidos devuelve 0 filas afectadas, y se probó (14 de 14). Lo que sí puede hacer cualquiera con la llave es leer todo y crear pedidos falsos: es una limitación declarada.
 
 ## 9. Conceptos para explicar con sus propias palabras
 

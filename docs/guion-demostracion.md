@@ -11,7 +11,7 @@ Dura unos 10 minutos. Está ajustado a lo que hay en la rama main el 18 de octub
 5. Revisar en la tabla pedidos que no queden pedidos de prueba de ensayos anteriores (por ejemplo los que empiezan con PRUEBA-RLS-) y borrarlos.
 6. Tener una segunda forma de mostrar el sitio por si falla internet: capturas de pantalla de cada paso.
 
-Nota sobre la Fase 4: si el PR de feature/hito2-fase4-visual todavía no está fusionado, el sitio publicado no tiene las fotos, el modo oscuro ni el botón para mostrar la contraseña. En ese caso no mencionarlos.
+Nota sobre la Fase 4: el PR ya está fusionado, así que el sitio publicado debería tener las fotos, el modo oscuro y el botón para mostrar la contraseña. Si no se ven, recargar con Ctrl + F5 y revisar en Actions que "pages build and deployment" esté en verde.
 
 ## 1. Arquitectura (1 minuto)
 
@@ -66,7 +66,7 @@ await supabaseClient.from('productos').update({ precio: 133.33 }).eq('sku', '000
 
 Esperado: `data` es `[]`. El valor es el mismo que ya tiene el producto, así que no daña nada si algo saliera mal.
 
-Qué decir: "No ocultamos la URL porque no tenemos backend propio. La URL y la llave publishable son visibles a propósito. Lo que protege los datos es Row Level Security, y esta prueba lo demuestra." Mostrar también el resultado de `npm run test:seguridad` (9 de 9 el 12 de octubre de 2026) si hay red, sabiendo que deja un pedido de prueba que hay que borrar.
+Qué decir: "No ocultamos la URL porque no tenemos backend propio. La URL y la llave publishable son visibles a propósito. Lo que protege los datos es Row Level Security, y esta prueba lo demuestra." Mostrar también el resultado de `npm run test:seguridad` (14 de 14 el 22 de octubre de 2026) si hay red, sabiendo que deja un pedido de prueba que hay que borrar.
 
 El proyecto no usa Angular. Si lo preguntan, decirlo directamente.
 

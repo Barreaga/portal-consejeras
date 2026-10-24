@@ -88,6 +88,14 @@ Se agregaron ilustraciones de los productos, modo oscuro, una leyenda de ayuda e
 
 Resultado el 12 de octubre de 2026: npm test 32 de 32, npm run test:e2e 22 aprobadas y 1 omitida, y npm run test:compat 24 de 24.
 
+## Seguridad ampliada, XSS y Robot Framework
+
+- tests/seguridad/rls.test.js pasó de 9 a 14 pruebas. SEG-10 y SEG-11 comprueban que un INSERT en productos y en consejeras se rechaza. SEG-12 y SEG-13 cubren UPDATE y DELETE sobre lineas_pedido, que era el hueco que declaraba docs/prueba-seguridad-rls.md. SEG-14 deja documentada la limitación de que la clave de las consejeras se puede leer con la llave publishable.
+- tests/e2e/xss.spec.js agrega 8 pruebas de XSS en la búsqueda por SKU, la cantidad, los filtros de precio y el login (NFR-04a).
+- tests/robot/ agrega 4 casos de login (CP-03 y CP-04) con Robot Framework. Es la misma comprobación que ya hacen las pruebas de Playwright, en otra herramienta.
+
+Resultado el 22 de octubre de 2026: npm run test:seguridad 14 de 14 aprobadas y npx playwright test tests/e2e/xss.spec.js 8 de 8. Con main actualizado, el 24 de octubre de 2026: npm test 32 de 32 y npm run test:e2e 30 aprobadas y 1 omitida (31 en total). Los casos de Robot Framework no se ejecutaron en esta verificación.
+
 ## El defecto real y su resolución
 
 Issue #1, "Los pedidos enviados no se conservan al reiniciar la aplicación". Severidad alta, historia HU-07.
