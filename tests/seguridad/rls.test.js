@@ -154,3 +154,84 @@ test('SEG-09 | DELETE del pedido de prueba no lo borra', async () => {
   const despues = await pedir('GET', 'pedidos?select=numero&numero=eq.' + NUMERO_PRUEBA);
   assert.strictEqual(despues.datos.length, 1);
 });
+
+// ─── (e) INSERT no autorizado se rechaza ───
+
+const SKU_PRUEBA = 'PRUEBA-RLS-' + Date.now();
+
+// Revisa que RLS rechace un INSERT: Postgres responde 401 o 403 con el
+// codigo 42501 (violacion de politica de seguridad).
+function insertRechazado(r) {
+  assert.ok(r.estado === 401 || r.estado === 403, 'RLS NO protegio: el INSERT respondio ' + r.estado);
+  assert.strictEqual(r.datos.code, '42501');
+}
+
+test('SEG-10 | INSERT en productos se rechaza', async () => {
+  const r = await pedir('POST', 'productos', {
+    sku: SKU_PRUEBA,
+    nombre: 'Producto de prueba RLS',
+    precio: 1,
+    categoria: 'Prueba',
+    agotado: false
+  }, 'return=representation');
+  insertRechazado(r);
+
+  const despues = await pedir('GET', 'productos?select=sku&sku=eq.' + SKU_PRUEBA);
+  assert.strictEqual(despues.datos.length, 0);
+});
+
+test('SEG-11 | INSERT en consejeras se rechaza', async () => {
+  const codigo = 'PRUEBA-' + Date.now();
+  const r = await pedir('POST', 'consejeras', {
+    codigo: codigo,
+    clave: 'prueba-rls',
+    nombre: 'Consejera de prueba RLS',
+    estado: 'activa'
+  }, 'return=representation');
+  insertRechazado(r);
+
+  const despues = await pedir('GET', 'consejeras?select=codigo&codigo=eq.' + codigo);
+  assert.strictEqual(despues.datos.length, 0);
+});
+
+// ─── (f) lineas_pedido: UPDATE y DELETE no tocan nada ───
+// Se usa max-affected=0: si RLS no protegiera, PostgREST deshace todo.
+// Si la tabla esta vacia la prueba no demostraria nada, por eso se omite.
+
+async function hayLineas() {
+  const r = await pedir('GET', 'lineas_pedido?select=numero_pedido&limit=1');
+  return r.estado === 200 && r.datos.length === 1;
+}
+
+test('SEG-12 | UPDATE en lineas_pedido no modifica nada', async (t) => {
+  if (!(await hayLineas())) {
+    t.skip('lineas_pedido esta vacia, no hay nada que probar');
+    return;
+  }
+  const r = await pedir('PATCH', 'lineas_pedido?cantidad=gte.0', { cantidad: 99 }, PROTEGIDO);
+  noAfectoFilas(r);
+});
+
+test('SEG-13 | DELETE en lineas_pedido no borra nada', async (t) => {
+  if (!(await hayLineas())) {
+    t.skip('lineas_pedido esta vacia, no hay nada que probar');
+    return;
+  }
+  const r = await pedir('DELETE', 'lineas_pedido?cantidad=gte.0', null, PROTEGIDO);
+  noAfectoFilas(r);
+
+  assert.ok(await hayLineas());
+});
+
+// ─── (g) Limitacion conocida (docs/arquitectura-actualizacion.md, 1.8) ───
+
+test('SEG-14 | LIMITACION: la clave de las consejeras se puede leer con la llave publica', async () => {
+  // Esta prueba pasa porque la limitacion existe. No imprime la clave.
+  // Si algun dia se usa Supabase Auth y deja de ser legible, va a fallar,
+  // y ese fallo es la buena noticia: hay que actualizar la documentacion.
+  const r = await pedir('GET', 'consejeras?select=clave&codigo=eq.' + CODIGO_REAL);
+  assert.strictEqual(r.estado, 200);
+  assert.strictEqual(r.datos.length, 1);
+  assert.strictEqual(typeof r.datos[0].clave, 'string');
+  assert.ok(r.datos[0].clave.length > 0);
+});

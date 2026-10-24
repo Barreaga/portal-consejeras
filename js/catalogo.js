@@ -53,6 +53,12 @@ function llenarFiltroCategorias(productos) {
 
 // ─── Catalogo ───
 
+// Imagen de cada producto: img/productos/<SKU><FORMATO_IMAGEN>.
+// Son fotos con licencia CC0 (ver docs/creditos-imagenes.md). Si un
+// producto nuevo no tiene foto, se muestra sin-imagen.svg.
+const CARPETA_IMAGENES = 'img/productos/';
+const FORMATO_IMAGEN = '.jpg';
+
 function dibujarProductos(lista) {
   const contenedor = document.getElementById('lista-productos');
   contenedor.textContent = '';
@@ -64,14 +70,17 @@ function dibujarProductos(lista) {
 
 function crearTarjeta(producto) {
   const columna = document.createElement('div');
-  columna.className = 'col-md-4';
+  columna.className = 'col-12 col-sm-6 col-lg-4';
 
   const tarjeta = document.createElement('div');
-  tarjeta.className = 'card h-100 p-3 tarjeta-producto';
+  tarjeta.className = 'card h-100 tarjeta-producto';
 
   if (producto.agotado) {
     tarjeta.classList.add('producto-agotado');
   }
+
+  const cuerpo = document.createElement('div');
+  cuerpo.className = 'card-body d-flex flex-column';
 
   const sku = document.createElement('p');
   sku.className = 'text-muted small mb-1';
@@ -81,30 +90,54 @@ function crearTarjeta(producto) {
   nombre.textContent = producto.nombre;
 
   const precio = document.createElement('p');
-  precio.className = 'mb-2';
+  precio.className = 'fw-semibold mb-3';
   precio.textContent = 'Q' + producto.precio.toFixed(2);
 
-  tarjeta.appendChild(sku);
-  tarjeta.appendChild(nombre);
-  tarjeta.appendChild(precio);
+  const categoria = document.createElement('span');
+  categoria.className = 'small text-body-secondary mb-2';
+  categoria.textContent = producto.categoria;
+
+  cuerpo.appendChild(sku);
+  cuerpo.appendChild(nombre);
+  cuerpo.appendChild(categoria);
+  cuerpo.appendChild(precio);
 
   if (producto.agotado) {
     // RN-03: si esta agotado no ponemos el boton de agregar
     const aviso = document.createElement('span');
-    aviso.className = 'badge bg-secondary';
+    aviso.className = 'badge bg-secondary align-self-start mt-auto';
     aviso.textContent = 'Agotado';
-    tarjeta.appendChild(aviso);
+    cuerpo.appendChild(aviso);
   } else {
-    tarjeta.appendChild(crearControlesAgregar(producto));
+    cuerpo.appendChild(crearControlesAgregar(producto));
   }
 
+  tarjeta.appendChild(crearImagen(producto));
+  tarjeta.appendChild(cuerpo);
   columna.appendChild(tarjeta);
   return columna;
 }
 
+function crearImagen(producto) {
+  const imagen = document.createElement('img');
+  imagen.className = 'card-img-top imagen-producto';
+  imagen.src = CARPETA_IMAGENES + producto.sku + FORMATO_IMAGEN;
+  imagen.alt = producto.nombre;
+  imagen.width = 600;
+  imagen.height = 480;
+  imagen.loading = 'lazy';
+
+  // Si el producto todavia no tiene imagen, se usa la de respaldo
+  imagen.addEventListener('error', function () {
+    imagen.src = CARPETA_IMAGENES + 'sin-imagen.svg';
+  }, { once: true });
+
+  return imagen;
+}
+
 function crearControlesAgregar(producto) {
   const grupo = document.createElement('div');
-  grupo.className = 'input-group';
+  grupo.className = 'input-group mt-auto';
 
   const campo = document.createElement('input');
   campo.type = 'text';
@@ -113,7 +146,7 @@ function crearControlesAgregar(producto) {
   campo.id = 'cant-' + producto.sku;
 
   const boton = document.createElement('button');
-  boton.className = 'btn btn-outline-dark';
+  boton.className = 'btn btn-outline-secondary';
   boton.textContent = 'Agregar';
   boton.addEventListener('click', function () {
     agregarProducto(producto, campo.value);

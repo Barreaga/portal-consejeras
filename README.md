@@ -47,6 +47,23 @@ npm run test:e2e         Pruebas de pantalla con Playwright
 npm run test:compat      Compatibilidad en Chrome, Firefox y Edge
 ```
 
+## Pruebas con Robot Framework
+
+Los casos CP-03 y CP-04 del login (antes manuales) también están en Robot Framework, en `tests/robot/`. Hace falta Python.
+
+```
+pip install robotframework robotframework-seleniumlibrary
+python -m http.server 8000
+```
+
+Con el sitio levantado, en otra terminal:
+
+```
+robot --outputdir resultados tests/robot
+```
+
+El reporte queda en `resultados/report.html` y el detalle paso a paso en `resultados/log.html`.
+
 ## Reglas de negocio
 
 | ID | Regla | Dónde está |
@@ -98,6 +115,7 @@ Así se puede ir de la matriz al código y del código a la matriz.
 │   ├── seguridad/      Prueba de RLS contra Supabase
 │   ├── e2e/            Pruebas con Playwright
 │   ├── compat/         Compatibilidad en Chrome, Firefox y Edge
+│   ├── robot/          Casos de login en Robot Framework
 │   └── aceptacion/     Criterios BDD (Q2)
 ├── docs/               Matriz de pruebas, RTM, arquitectura y guías
 ├── sql/                Políticas RLS y función registrar_pedido
