@@ -50,7 +50,29 @@ La prueba no revisa si el diseño se ve bien. Eso sigue siendo inspección visua
 
 De los 19 casos de la RTM: 19 aprobados, 0 fallidos, 0 bloqueados y 0 no ejecutados. Con CP-20 a CP-30 son 30 aprobados de 30.
 
+## Pruebas manuales ejecutadas el 24 de octubre de 2026
+
+Las hizo Brandon Arreaga en el sitio publicado (barreaga.github.io/portal-consejeras), con la consejera 3311. Las capturas quedaron guardadas fuera del repositorio.
+
+| Caso | Resultado | Evidencia |
+|---|---|---|
+| CA-01 (CP-17) | Aprobado | Se envió un pedido de Q400.00 y se creó el pedido PED-2026-5017. Después se borró de Supabase: primero sus líneas en lineas_pedido y luego el pedido |
+| CA-02 (CP-16) | Aprobado | Con 3 unidades del SKU 0001 (Q399.99) apareció "Le faltan Q0.01 para el minimo." |
+| CA-03 (CP-12) | Aprobado | Con cantidad 100 apareció "La cantidad maxima es 99." |
+| CA-04 (CP-14) | Aprobado | El producto 0012 apareció con la etiqueta "Agotado" y sin botón de agregar |
+| CA-05 (CP-05) | Aprobado | Sin sesión, al escribir la dirección de dashboard.html el sitio llevó a login.html |
+
+Con esto los 5 criterios BDD de tests/aceptacion/pedido.feature quedaron ejecutados a mano.
+
+Otras comprobaciones del mismo día:
+
+- Despliegue (MAN-09): la última ejecución de "pages build and deployment" en Actions estaba en verde. En el sitio publicado, la pestaña Network mostró una petición GET con estado 200 a la dirección de Supabase del proyecto (rest/v1/pedidos, filtrada por la consejera 3311).
+- Robot Framework: los 4 casos de tests/robot (CP-03 y CP-04 del login) pasaron, 4 de 4, con `robot --outputdir resultados tests/robot`.
+- Seguridad: `npm run test:seguridad` dio 14 de 14 aprobadas en la computadora de Brandon Arreaga. La fila de prueba que deja SEG-03 se borró a mano.
+- Estado de la base después de las pruebas: la única fila en pedidos es PED-2026-8675, la de la prueba manual del 12 de octubre.
+
 ## Lo que todavía hay que hacer a mano
 
-1. Revisión visual del diseño en los 3 navegadores y 2 tamaños.
-2. Los 5 criterios BDD (CA-01 a CA-05), siguiendo tests/aceptacion/pedido.feature.
+1. Revisión visual del diseño en los 3 navegadores y 2 tamaños (MAN-04 de docs/guia-pruebas-manuales.md).
+2. Rendimiento (NFR-01), usabilidad con una persona externa (NFR-02) y 20 envíos seguidos (NFR-03).
+3. La tecla Enter en el login (MAN-08) y la prueba de RLS desde la consola del navegador (MAN-03). La seguridad de RLS sí está cubierta por la prueba automática.
