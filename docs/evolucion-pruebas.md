@@ -25,7 +25,7 @@ Las pruebas de integración y las 11 del filtro entraron en el mismo commit (d1e
 | Unitarias del filtro | tests/filtros.test.js | 11 | npm test | Sí |
 | Integración | tests/integracion/flujo-pedido.test.js | 9 | npm test | Sí |
 | Seguridad RLS | tests/seguridad/rls.test.js | 9 | npm run test:seguridad | No |
-| Extremo a extremo | tests/e2e/login.spec.js, busqueda-sku.spec.js, envio-pedido.spec.js y casos-rtm.spec.js | 19 | npm run test:e2e | No |
+| Extremo a extremo | tests/e2e/login.spec.js, busqueda-sku.spec.js, envio-pedido.spec.js, casos-rtm.spec.js, tema.spec.js y login-ayuda.spec.js | 23 | npm run test:e2e | No |
 | Compatibilidad (NFR-06) | tests/compat/compatibilidad.spec.js | 4 pruebas en 6 combinaciones (24) | npm run test:compat | No |
 | Criterios BDD | tests/aceptacion/pedido.feature | 5 | Manual | No |
 
@@ -76,6 +76,17 @@ También se automatizó la matriz de compatibilidad del NFR-06 (Chrome, Firefox 
 ## Prueba con la base de datos real
 
 Después de ejecutar sql/registrar-pedido.sql en Supabase, Brandon Arreaga hizo a mano el flujo completo con la base real: inició sesión, armó un pedido de Q400.00 exactos (4 x SKU 0002) y dio doble clic en "Enviar pedido". En la tabla pedidos quedó un solo registro, PED-2026-8675, con total Q400.00 y una línea. Con esto CP-02, CP-17 y CP-18 quedaron aprobados y la RTM llegó a 19 de 19 casos aprobados.
+
+## Cambios visuales (feature/hito2-fase4-visual)
+
+Se agregaron ilustraciones de los productos, modo oscuro, una leyenda de ayuda en el login y un botón para mostrar u ocultar la contraseña. No se cambiaron IDs ni clases que usen js/ o tests/, y las pruebas anteriores siguieron pasando sin cambios.
+
+- Pruebas nuevas: tema.spec.js (2 pruebas del modo oscuro) y login-ayuda.spec.js (2 pruebas de la leyenda y del botón de la contraseña).
+- Al revisar las imágenes se encontró que el servidor local de las pruebas (tests/e2e/servidor.js) no conocía el tipo de archivo SVG y las entregaba como binario, así que el navegador no las dibujaba. Se agregaron los tipos SVG, JPG y PNG.
+- En modo oscuro, los botones "Aplicar filtros" y "Agregar" casi no se veían. Se cambiaron a estilos que se ven en los dos modos.
+- El enlace "Olvide mi contrasena" del login llevaba a recuperar.html, que no existe. Se cambió por una indicación en texto.
+
+Resultado el 12 de octubre de 2026: npm test 32 de 32, npm run test:e2e 22 aprobadas y 1 omitida, y npm run test:compat 24 de 24.
 
 ## El defecto real y su resolución
 
