@@ -35,6 +35,8 @@ Los escenarios están en tests/aceptacion/pedido.feature y no están automatizad
 
 Pedidos creados en esta prueba (para borrarlos después): __________
 
+Resultado del 24 de octubre de 2026: los 5 criterios aprobados. Detalle en docs/rtm-estado.md.
+
 ## MAN-02 · Seguridad XSS (NFR-04a)
 
 Datos de entrada: `<script>alert(1)</script>` y `<img src=x onerror=alert(1)>`.
@@ -127,6 +129,8 @@ Estado: ☐ Aprobado ☐ Fallido ☐ Bloqueado ☐ No ejecutado. Captura: ______
 2. En el sitio publicado abrir F12, pestaña Network, iniciar sesión y comprobar que aparecen llamadas a supabase.co. Captura: __________
 
 Estado: ☐ Aprobado ☐ Fallido ☐ Bloqueado ☐ No ejecutado
+
+Resultado del 24 de octubre de 2026: aprobado. Detalle en docs/rtm-estado.md.
 
 ## Pruebas de la mejora visual (Fase 4)
 
