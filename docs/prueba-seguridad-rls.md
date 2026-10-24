@@ -48,3 +48,29 @@ La prueba no corre en `npm test` ni en el QA Gate, porque necesita internet y ca
 El sitio no tiene un servidor propio. Todo el JavaScript corre en el navegador de quien visita la página, así que la URL de Supabase y la llave le tienen que llegar a ese navegador para que el sitio funcione. Aunque las escondiéramos en otro archivo o las codificáramos, igual se verían en la pestaña Network del navegador. Esconderlas no protege nada.
 
 Por eso la URL y la llave publishable están visibles a propósito en `js/supabaseClient.js`. Supabase diseñó la llave publishable para usarse en el navegador, y esa llave sola no da permisos especiales. La protección está en Row Level Security: la base de datos decide qué se puede hacer con esa llave, y esta prueba muestra que con ella no se puede modificar ni borrar nada. La llave secreta, que sí se salta RLS, no está en el código y no se usó en esta prueba.
+
+## Ampliación: pruebas nuevas
+
+Se agregaron pruebas después de la ejecución del 12 de octubre de 2026. El 22 de octubre de 2026 se corrió `npm run test:seguridad` completo desde la computadora de Brandon Arreaga: 14 de 14 casos aprobados, 0 fallidos y 0 omitidos.
+
+| Caso | Qué prueba | Estado |
+|---|---|---|
+| SEG-10 | INSERT en productos se rechaza con el código 42501 y no queda ninguna fila | Aprobado el 22 de octubre de 2026 |
+| SEG-11 | INSERT en consejeras se rechaza con el código 42501 y no queda ninguna fila | Aprobado el 22 de octubre de 2026 |
+| SEG-12 | UPDATE en lineas_pedido no modifica nada (cubre el hueco que decía esta página) | Aprobado el 22 de octubre de 2026 |
+| SEG-13 | DELETE en lineas_pedido no borra nada | Aprobado el 22 de octubre de 2026 |
+| SEG-14 | Limitación conocida: la columna clave se puede leer con la llave publishable. La prueba no imprime la clave | Aprobado el 22 de octubre de 2026 |
+
+SEG-12 y SEG-13 se omiten solos si la tabla lineas_pedido está vacía, porque en ese caso no demostrarían nada. En esta ejecución no se omitieron, así que la tabla tenía líneas y las pruebas sí comprobaron algo.
+
+Después de la ejecución se consultó la base en modo lectura. SEG-10 y SEG-11 no dejaron ningún producto ni consejera de prueba. La única fila que quedó es el pedido PRUEBA-RLS-1792730618049 (consejera 3311, total 0.00), creado por SEG-03, que hay que borrar a mano desde el panel de Supabase.
+
+SEG-14 pasa porque la limitación existe. Si algún día se usa Supabase Auth y la clave deja de ser legible, esa prueba va a fallar, y habrá que actualizar la documentación.
+
+### Inyección de código (NFR-04a)
+
+tests/e2e/xss.spec.js tiene 8 pruebas: dos textos de ataque (una etiqueta img con onerror y una etiqueta script) escritos en cuatro lugares: la búsqueda por SKU, la cantidad de un producto, los filtros de precio y el login (código y contraseña). En cada una se revisa que no se ejecute el código (window.xss queda sin definir), que no salga ninguna alerta y que la etiqueta no se cree en la página.
+
+Resultado el 22 de octubre de 2026 con `npx playwright test tests/e2e/xss.spec.js`: 8 de 8 aprobadas. Antes de confiar en ellas se comprobó que la detección funciona: inyectando el mismo texto con innerHTML a propósito, window.xss sí vale 1 y la etiqueta sí aparece. Ninguno de los archivos de js/ usa innerHTML.
+
+Lo que estas pruebas no demuestran: los mensajes de error de esos campos son textos fijos, no repiten lo escrito. Por eso el riesgo ya era bajo, y la prueba sirve para detectar si alguien cambia eso en el futuro. Corren con `npm run test:e2e`, no están en el QA Gate.
