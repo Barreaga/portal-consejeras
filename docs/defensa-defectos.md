@@ -44,3 +44,17 @@ Q2 (pruebas de negocio que apoyan al equipo):
 ## 5. Cierre
 
 Los dos defectos siguieron el mismo camino: issue con pasos para reproducir, corrección en una rama, Pull Request y QA Gate en verde (comprobado en GitHub para los commits 51cfe54 y d1ed46a). El defecto #1 dejó pruebas automáticas que evitan que vuelva a pasar. El defecto #2 quedó corregido, pero solo se puede comprobar a mano.
+
+## 6. Hallazgo posterior: la tecla Enter en el catálogo
+
+Se detectó el 25 de octubre de 2026, al ensayar la presentación, con el sitio publicado. No tiene issue propio: es el mismo problema del issue #2, ahora en otra página.
+
+- Severidad: Media. Historia afectada: HU-04 (buscar por SKU) y HU-09 (filtros).
+- Cómo se reproduce: en catalogo.html escribir un SKU en la búsqueda, o un precio en los filtros, y presionar Enter.
+- Esperado: hace lo mismo que el botón.
+- Obtenido: no pasa nada. Solo funcionaba con el clic en "Buscar" o en "Aplicar filtros".
+- Causa: js/catalogo.js solo tenía eventos click en los botones. El login ya tenía el evento keydown desde la corrección del issue #2, pero el catálogo no.
+- Corrección: las funciones buscarConEnter() y filtrarConEnter() en js/catalogo.js, con el evento keydown en el campo de búsqueda y en los dos campos de precio.
+- Prueba: tests/e2e/enter-catalogo.spec.js, 4 pruebas. Antes del arreglo las 4 fallaban (la lista seguía con los 16 productos) y después pasan. A diferencia del issue #2, este defecto sí quedó con prueba automatizada.
+
+Lo que se aprendió: al corregir un defecto de una página hay que revisar si las demás páginas tienen el mismo problema. El del Enter se corrigió en el login y no se revisó el catálogo.
