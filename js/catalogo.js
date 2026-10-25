@@ -416,3 +416,20 @@ document.getElementById('btn-enviar').addEventListener('click', enviarPedido);
 document.getElementById('btn-salir').addEventListener('click', cerrarSesion);
 document.getElementById('btn-aplicar-filtros').addEventListener('click', aplicarFiltros);
 document.getElementById('btn-limpiar-filtros').addEventListener('click', limpiarFiltros);
+
+// La tecla Enter hace lo mismo que el boton, como en el login (issue #2)
+function buscarConEnter(evento) {
+  if (evento.key === 'Enter') {
+    buscar();
+  }
+}
+
+function filtrarConEnter(evento) {
+  if (evento.key === 'Enter') {
+    aplicarFiltros();
+  }
+}
+
+document.getElementById('buscar-sku').addEventListener('keydown', buscarConEnter);
+document.getElementById('filtro-precio-min').addEventListener('keydown', filtrarConEnter);
+document.getElementById('filtro-precio-max').addEventListener('keydown', filtrarConEnter);
